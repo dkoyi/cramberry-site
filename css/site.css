@@ -199,6 +199,7 @@ pre.cmd {
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 101; background: var(--cream); }
 .site-header::after { content: ""; position: absolute; left: var(--gutter); right: var(--gutter-r); bottom: 0; height: 1px; background: var(--hairline); }
 .hdr { display: flex; align-items: center; gap: 20px; min-height: var(--header-h); }
+.site-header .wrap { max-width: 1480px; }  /* lines the logo up with the wide hero below it */
 .logo { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); flex: none; }
 .logo canvas { width: 60px; height: 66px; }
 .logo-word {

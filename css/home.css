@@ -12,6 +12,11 @@
   content: ""; position: absolute; inset: auto 0 0; height: 35%; pointer-events: none; background: linear-gradient(transparent, var(--cream));
 }
 .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap: clamp(28px, 4vw, 56px); align-items: center; }
+/* desktop: the hero fills the first screen, and the video gets the larger share of a wider container */
+@media (min-width: 901px) {
+  .hero { min-height: calc(100svh - var(--header-h)); display: grid; align-items: center; }
+  .hero-grid { width: 100%; max-width: 1480px; grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr); }
+}
 .hero-copy { display: grid; gap: 16px; justify-items: start; }
 .hero-title { max-width: 15ch; }
 .hero-lede { max-width: 46ch; color: var(--ink-soft); }
