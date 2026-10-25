@@ -1,12 +1,34 @@
 /* Cramberry · home page sections */
 
-/* ---------- hero: headline, two buttons, the demo video ---------- */
-.hero { position: relative; padding-block: clamp(32px, 4.5vw, 56px) clamp(44px, 6vw, 76px); background: var(--cream); }
-.hero-inner { display: grid; justify-items: center; text-align: center; gap: 16px; }
-.hero-title { max-width: 22ch; }
-.hero-lede { max-width: 56ch; color: var(--ink-soft); }
-.hero-ctas { justify-content: center; margin-top: 2px; }
+/* ---------- hero: text left, demo video right, pixel grid + drifting fruit bosses behind ---------- */
+.hero {
+  position: relative; overflow: hidden; padding-block: clamp(40px, 5.5vw, 76px) clamp(48px, 6.5vw, 88px);
+  background:
+    linear-gradient(var(--hairline) 1px, transparent 1px) 0 0 / 32px 32px,
+    linear-gradient(90deg, var(--hairline) 1px, transparent 1px) 0 0 / 32px 32px,
+    var(--cream);
+}
+.hero::after { /* fade the grid out towards the bottom edge */
+  content: ""; position: absolute; inset: auto 0 0; height: 35%; pointer-events: none; background: linear-gradient(transparent, var(--cream));
+}
+.hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap: clamp(28px, 4vw, 56px); align-items: center; }
+.hero-copy { display: grid; gap: 16px; justify-items: start; }
+.hero-title { max-width: 15ch; }
+.hero-lede { max-width: 46ch; color: var(--ink-soft); }
+.hero-ctas { margin-top: 4px; }
 .hero-ctas .btn svg:not(.ico) { width: 20px; height: 20px; }
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: minmax(0, 1fr); }
+  .hero-title { max-width: 18ch; }
+}
+
+/* drifting fruit bosses in the background */
+.hero-sky { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.drift { position: absolute; opacity: .2; animation: drift 9s ease-in-out infinite alternate; }
+.d1 { left: 3%; top: 10%; } .d2 { left: 38%; top: 6%; animation-delay: -3s; } .d3 { right: 4%; top: 6%; animation-delay: -5s; }
+.d4 { left: 42%; bottom: 10%; animation-delay: -2s; } .d5 { right: 6%; bottom: 8%; opacity: .15; animation-delay: -6s; }
+@keyframes drift { from { transform: translateY(0) rotate(-4deg); } to { transform: translateY(-18px) rotate(4deg); } }
+@media (max-width: 900px) { .d2, .d4 { display: none; } .drift { opacity: .13; } }
 .ul { position: relative; white-space: nowrap; color: var(--blue); }
 [data-theme="dark"] .ul { color: var(--blue-light); }
 .ul svg { position: absolute; left: 0; right: 0; bottom: -.16em; width: 100%; height: .26em; overflow: visible; }
@@ -18,7 +40,7 @@
 
 
 .hero-video {
-  width: min(840px, 100%); aspect-ratio: 16 / 9; margin-top: clamp(12px, 2vw, 22px); border-radius: 14px; overflow: hidden;
+  position: relative; z-index: 1; width: 100%; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden;
   background: var(--night); box-shadow: 0 0 0 3px #000, 0 8px 0 3px #000, 0 30px 60px -28px rgba(15,16,21,.7);
 }
 .hero-video iframe { width: 100%; height: 100%; border: 0; display: block; }

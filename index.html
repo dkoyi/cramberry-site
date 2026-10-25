@@ -62,17 +62,26 @@
   <span class="intro-skip">click to skip</span>
 </div>
 
-<!-- 1. HERO: what it is, two buttons, the demo video -->
+<!-- 1. HERO: text on the left, the demo video on the right, pixel grid + drifting fruit bosses behind -->
 <section class="hero" id="top" aria-labelledby="hero-h">
-  <div class="wrap hero-inner">
-    <p class="kicker">Discord bot · Cubbie Hackathon, Track 3</p>
-    <h1 class="h1 hero-title" id="hero-h">Turn your study group chat into a <span class="ul">quiz battle<svg viewBox="0 0 300 16" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2 10 H22 V5 H42 V10 H62 V5 H82 V10 H102 V5 H122 V10 H142 V5 H162 V10 H182 V5 H202 V10 H222 V5 H242 V10 H262 V5 H282 V10 H298"/></svg></span>.</h1>
-    <p class="lede hero-lede">Someone says "im cooked", and Cramberry starts a 2-minute quiz the whole group plays together. Afterwards, each person's Cubbie texts them what they got wrong.</p>
-    <div class="btn-row hero-ctas">
-      <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1563704377833689098&amp;scope=bot+applications.commands&amp;permissions=117760" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 10 10" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M4 1h2v3h3v2H6v3H4V6H1V4h3z"/></svg>Add to Discord</a>
-      <a class="btn btn-2" href="https://github.com/MalaikaKamranKhan/Track3" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>View on GitHub</a>
+  <div class="hero-sky" aria-hidden="true">
+    <canvas class="drift d1" data-sprite="boss-lime" data-box="22" data-scale="3"></canvas>
+    <canvas class="drift d2" data-sprite="boss-lemon" data-box="22" data-scale="2"></canvas>
+    <canvas class="drift d3" data-sprite="boss-tangerine" data-box="22" data-scale="3"></canvas>
+    <canvas class="drift d4" data-sprite="boss-kiwi" data-box="22" data-scale="2"></canvas>
+    <canvas class="drift d5" data-sprite="boss-lie" data-box="22" data-scale="3"></canvas>
+  </div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="kicker">Discord bot · Cubbie Hackathon, Track 3</p>
+      <h1 class="h1 hero-title" id="hero-h">Turn your study group chat into a <span class="ul">quiz battle<svg viewBox="0 0 300 16" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2 10 H22 V5 H42 V10 H62 V5 H82 V10 H102 V5 H122 V10 H142 V5 H162 V10 H182 V5 H202 V10 H222 V5 H242 V10 H262 V5 H282 V10 H298"/></svg></span>.</h1>
+      <p class="lede hero-lede">Someone says "im cooked", and Cramberry starts a 2-minute quiz the whole group plays together. Afterwards, each person's Cubbie texts them what they got wrong.</p>
+      <div class="btn-row hero-ctas">
+        <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1563704377833689098&amp;scope=bot+applications.commands&amp;permissions=117760" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 10 10" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M4 1h2v3h3v2H6v3H4V6H1V4h3z"/></svg>Add to Discord</a>
+        <a class="btn btn-2" href="https://github.com/MalaikaKamranKhan/Track3" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>View on GitHub</a>
+      </div>
     </div>
-    <div class="hero-video" id="demo"><div class="video-soon"><canvas data-sprite="cramberry" data-scale="5" aria-hidden="true"></canvas><p>Demo video coming soon</p></div></div>
+    <div class="hero-video" id="demo"><iframe src="https://www.youtube-nocookie.com/embed/wwIt5ZvROrs?rel=0" title="Cramberry demo video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
   </div>
 </section>
 

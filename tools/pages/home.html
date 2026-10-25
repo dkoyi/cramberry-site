@@ -5,15 +5,24 @@
   <span class="intro-skip">click to skip</span>
 </div>
 
-<!-- 1. HERO: what it is, two buttons, the demo video -->
+<!-- 1. HERO: text on the left, the demo video on the right, pixel grid + drifting fruit bosses behind -->
 <section class="hero" id="top" aria-labelledby="hero-h">
-  <div class="wrap hero-inner">
-    <p class="kicker">Discord bot · Cubbie Hackathon, Track 3</p>
-    <h1 class="h1 hero-title" id="hero-h">Turn your study group chat into a <span class="ul">quiz battle<svg viewBox="0 0 300 16" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2 10 H22 V5 H42 V10 H62 V5 H82 V10 H102 V5 H122 V10 H142 V5 H162 V10 H182 V5 H202 V10 H222 V5 H242 V10 H262 V5 H282 V10 H298"/></svg></span>.</h1>
-    <p class="lede hero-lede">Someone says "im cooked", and Cramberry starts a 2-minute quiz the whole group plays together. Afterwards, each person's Cubbie texts them what they got wrong.</p>
-    <div class="btn-row hero-ctas">
-      <a class="btn" href="{{ADD}}" target="_blank" rel="noopener">{{PLUS}}Add to Discord</a>
-      <a class="btn btn-2" href="{{REPO}}" target="_blank" rel="noopener">{{GH}}View on GitHub</a>
+  <div class="hero-sky" aria-hidden="true">
+    <canvas class="drift d1" data-sprite="boss-lime" data-box="22" data-scale="3"></canvas>
+    <canvas class="drift d2" data-sprite="boss-lemon" data-box="22" data-scale="2"></canvas>
+    <canvas class="drift d3" data-sprite="boss-tangerine" data-box="22" data-scale="3"></canvas>
+    <canvas class="drift d4" data-sprite="boss-kiwi" data-box="22" data-scale="2"></canvas>
+    <canvas class="drift d5" data-sprite="boss-lie" data-box="22" data-scale="3"></canvas>
+  </div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="kicker">Discord bot · Cubbie Hackathon, Track 3</p>
+      <h1 class="h1 hero-title" id="hero-h">Turn your study group chat into a <span class="ul">quiz battle<svg viewBox="0 0 300 16" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2 10 H22 V5 H42 V10 H62 V5 H82 V10 H102 V5 H122 V10 H142 V5 H162 V10 H182 V5 H202 V10 H222 V5 H242 V10 H262 V5 H282 V10 H298"/></svg></span>.</h1>
+      <p class="lede hero-lede">Someone says "im cooked", and Cramberry starts a 2-minute quiz the whole group plays together. Afterwards, each person's Cubbie texts them what they got wrong.</p>
+      <div class="btn-row hero-ctas">
+        <a class="btn" href="{{ADD}}" target="_blank" rel="noopener">{{PLUS}}Add to Discord</a>
+        <a class="btn btn-2" href="{{REPO}}" target="_blank" rel="noopener">{{GH}}View on GitHub</a>
+      </div>
     </div>
     <div class="hero-video" id="demo">{{VIDEO}}</div>
   </div>
