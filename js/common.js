@@ -290,32 +290,36 @@
       const row = S.rows[y];
       for (let x = 0; x < S.w; x++) if (row[x] !== ".") { ctx.fillStyle = S.palette[parseInt(row[x], 16)]; ctx.fillRect(x, y, 1, 1); }
     };
+    const tag = el.querySelector(".intro-tag");
     return (async () => {
-      // body rows pop in from the bottom up, plume last (it "flips up")
+      // body rows pop in from the bottom up, plume last (it "flips up"), then a little bounce
       const order = [];
       for (let y = S.h - 1; y >= 5; y--) order.push(y);
       for (let y = 4; y >= 0; y--) order.push(y);
-      for (const y of order) { drawRow(y); await wait(fast ? 8 : 34); }
+      for (const y of order) { drawRow(y); await wait(fast ? 6 : 20); }
+      berry.classList.add("bounce");
       if (!fast) { peek.classList.add("up"); }
       const text = "Cramberry";
       word.innerHTML = '<span class="t"></span><span class="caret"></span>';
       const t = word.querySelector(".t");
-      for (let i = 1; i <= text.length; i++) { t.textContent = text.slice(0, i); await wait(fast ? 18 : 70); }
-      await wait(fast ? 60 : 360);
-      peek.classList.remove("up");
+      for (let i = 1; i <= text.length; i++) { t.textContent = text.slice(0, i); await wait(fast ? 14 : 52); }
       word.querySelector(".caret")?.remove();
-      await wait(fast ? 40 : 240);
+      tag && tag.classList.add("on");                 // "cram + cranberry" under the name
+      await wait(fast ? 120 : 520);
+      peek.classList.remove("up");
+      tag && tag.classList.remove("on");
+      await wait(fast ? 40 : 160);
       // FLIP: move the intro logo onto the header logo
       if (target) {
         const a = logo.getBoundingClientRect();
         const b = target.getBoundingClientRect();
         const k = b.height / a.height;
         const dx = b.left - a.left, dy = b.top - a.top;
-        logo.style.transition = `transform ${fast ? 0.45 : 0.7}s cubic-bezier(.65,0,.35,1)`;
+        logo.style.transition = `transform ${fast ? 0.42 : 0.6}s cubic-bezier(.65,0,.35,1)`;
         logo.style.transform = `translate(${dx}px, ${dy}px) scale(${Math.min(k, b.width / a.width)})`;
         el.style.background = "transparent";
-        el.style.transition = `background-color .5s ease`;
-        await wait(fast ? 420 : 680);
+        el.style.transition = `background-color .45s ease`;
+        await wait(fast ? 400 : 580);
         logo.style.visibility = "hidden"; // landed: the header logo takes over in this same frame
       }
       finish();

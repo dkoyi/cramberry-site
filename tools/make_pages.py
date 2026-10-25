@@ -170,8 +170,8 @@ def page(file, title, desc, body, active="", css="", js=(), body_class=""):
 
 
 if __name__ == "__main__":
-    page("index.html", "Cramberry · your study squad's boss battle, right in Discord",
-         "A pixel berry knight that turns a study group's Discord into a quiz game, and talks to each student's own Cubbie.",
+    page("index.html", "Cramberry · turn your Discord study group chat into a cram battle",
+         "Cramberry is a Discord bot for study groups: when someone says im cooked, it starts a 2-minute quiz the whole group plays, and each person's Cubbie texts them what they missed.",
          (PAGES / "home.html").read_text(encoding="utf-8"), css="home", js=("home",), body_class="home")
     page("dashboard.html", "Squad dashboard · Cramberry (demo)",
          "What a study squad looks like after a week of Cramberry: leaderboard, streaks, battles, deadlines and weak spots.",

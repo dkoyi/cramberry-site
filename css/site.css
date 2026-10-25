@@ -138,7 +138,7 @@ canvas.spr { display: block; }
 .btn .ico { width: 20px; height: 20px; flex: none; }
 .btn-2 { --bg: var(--paper); --fg: var(--ink); --edge: var(--ink); border: 2px solid var(--ink); box-shadow: 0 3px 0 var(--ink); }
 .btn-2:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); }
-.night .btn-2, .arena .btn-2 { --bg: var(--panel); --fg: var(--night-text); --edge: #000; border-color: #3a3f50; box-shadow: 0 3px 0 #000; }
+.night .btn-2, .arena .btn-2, [data-theme="dark"] .btn-2 { --bg: var(--panel); --fg: var(--night-text); --edge: #000; border-color: #3a3f50; box-shadow: 0 3px 0 #000; }
 .btn-sm { min-height: 44px; padding: 0 16px; font-size: 15px; }
 .btn-gold { --bg: var(--gold); --fg: #2b211b; --edge: #c9a94f; }
 .btn-red { --bg: var(--hp-red); --edge: #a8303a; }
@@ -154,7 +154,7 @@ canvas.spr { display: block; }
               8px 12px 0 0 rgba(43,33,27,.12);
   margin: 4px;
 }
-.night .pxb { box-shadow: 0 -4px 0 0 var(--panel-edge), 0 4px 0 0 var(--panel-edge), -4px 0 0 0 var(--panel-edge), 4px 0 0 0 var(--panel-edge), 8px 12px 0 0 rgba(0,0,0,.35); }
+.night .pxb, [data-theme="dark"] .pxb { box-shadow: 0 -4px 0 0 var(--panel-edge), 0 4px 0 0 var(--panel-edge), -4px 0 0 0 var(--panel-edge), 4px 0 0 0 var(--panel-edge), 8px 12px 0 0 rgba(0,0,0,.35); }
 .notch { clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px); }
 
 /* chips / copy */
@@ -163,7 +163,7 @@ canvas.spr { display: block; }
   background: var(--paper); border: 2px solid var(--ink); border-radius: 6px; box-shadow: 0 3px 0 var(--ink);
   font-family: var(--f-mono); font-size: 15px; color: var(--ink);
 }
-.night .chip { background: var(--panel); color: var(--night-text); border-color: #3a3f50; box-shadow: 0 3px 0 #000; }
+.night .chip, [data-theme="dark"] .chip { background: var(--panel); color: var(--night-text); border-color: #3a3f50; box-shadow: 0 3px 0 #000; }
 .copy {
   display: inline-grid; place-items: center; width: 34px; height: 34px; min-width: 34px; border-radius: 5px; border: 0; cursor: pointer;
   background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue);
@@ -199,7 +199,7 @@ pre.cmd {
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 101; background: var(--cream); }
 .site-header::after { content: ""; position: absolute; left: var(--gutter); right: var(--gutter-r); bottom: 0; height: 1px; background: var(--hairline); }
 .hdr { display: flex; align-items: center; gap: 20px; min-height: var(--header-h); }
-.site-header .wrap { max-width: 1480px; }  /* lines the logo up with the wide hero below it */
+.site-header .wrap { max-width: 1480px; padding-inline: max(var(--gutter), 3vw) max(var(--gutter-r), 3vw); }  /* lines the logo up with the wide hero */
 .logo { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); flex: none; }
 .logo canvas { width: 60px; height: 66px; }
 .logo-word {
@@ -273,10 +273,19 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .intro-peek.up { transform: translateY(18%); }
 .intro-peek canvas { width: 140px; height: 140px; }
 .intro-skip { position: absolute; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); left: 50%; transform: translateX(-50%); font-family: var(--f-pixel); font-size: 14px; color: var(--ink-soft); letter-spacing: .08em; }
+.intro-logo canvas.bounce { animation: introPop .28s var(--hop); }
+@keyframes introPop { 50% { transform: scale(1.08); } }
+.intro-tag {
+  position: absolute; top: calc(50% + 136px); left: 50%; transform: translate(-50%, 6px); opacity: 0;
+  font-family: var(--f-pixel); font-size: clamp(18px, 2vw, 24px); letter-spacing: .14em; text-transform: uppercase; color: var(--wildberry);
+  transition: opacity .2s ease, transform .25s var(--hop);
+}
+.intro-tag.on { opacity: 1; transform: translate(-50%, 0); }
 @media (max-width: 640px) {
   .intro-logo { flex-direction: column; gap: 12px; }
   .intro-logo canvas { width: 120px; height: 132px; }
   .intro-peek canvas { width: 100px; height: 100px; }
+  .intro-tag { top: calc(50% + 150px); font-size: 16px; }
 }
 
 /* ---------- footer ---------- */

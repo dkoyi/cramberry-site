@@ -190,17 +190,10 @@
     });
   }
 
-  /* ---------- 6. card carousel + lightbox ---------- */
+  /* ---------- 2. Discord cards: the strip scrolls on its own (CSS); clicking a card opens it larger ---------- */
   function carousel() {
     const car = $("#carousel"), dlg = $("#lightbox");
     if (!car) return;
-    const step = () => car.querySelector("figure").getBoundingClientRect().width + 22;
-    $(".car-prev").addEventListener("click", () => car.scrollBy({ left: -step(), behavior: CB.reduced() ? "instant" : "smooth" }));
-    $(".car-next").addEventListener("click", () => car.scrollBy({ left: step(), behavior: CB.reduced() ? "instant" : "smooth" }));
-    car.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowRight") { e.preventDefault(); car.scrollBy({ left: step() }); }
-      if (e.key === "ArrowLeft") { e.preventDefault(); car.scrollBy({ left: -step() }); }
-    });
     car.addEventListener("click", (e) => {
       const b = e.target.closest("[data-full]");
       if (!b || !dlg || !dlg.showModal) return;
