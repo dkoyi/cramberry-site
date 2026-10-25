@@ -17,13 +17,20 @@
     tools();
   });
 
-  /* ---------- 1. hero: a live battle on the arena stage, looping through the real demo questions ---------- */
+  /* ---------- games: a live battle on the stage, looping through the bot's built-in caches questions ---------- */
+  // p = prompt, a = index of the right answer (same questions and answers as the bot's offline question bank)
+  const QS = [
+    { p: "A 2-way set-associative cache has 64 sets. How many index bits does an address use?", a: 1 },
+    { p: "Which miss happens the very first time a block is ever accessed?", a: 2 },
+    { p: "Block size is 16 bytes. How many offset bits are in each address?", a: 1 },
+    { p: "Raising associativity from direct-mapped to 4-way mostly reduces which misses?", a: 1 },
+    { p: "Hit time 1 cycle, miss rate 5%, miss penalty 100 cycles. What is the AMAT?", a: 1 },
+  ];
   function heroBattle() {
     const boss = $("#mc-boss"), hero = $(".mc-hero"), bubble = $(".mc-boss .bubble"), host = $(".mc-boss .dmg-host");
     if (!boss) return;
     const keys = $$(".mc-abcd span");
     const prompt = $("#mc-q");
-    const QS = (CB.Battle && CB.Battle.QUESTIONS) || [];
     let hp = 100, sq = 100, q = 1;
     const set = () => {
       $("#mc-hp").style.setProperty("--v", hp + "%"); $("#mc-hpn").textContent = hp + "%";
@@ -86,11 +93,11 @@
     const L = $("#loop");
     if (!L) return;
     const STEPS = {
-      1: { link: 1, dir: "fwd", on: ["canvas", "cubbies"], t: "Cubbie reads Canvas, privately: course codes, this week's topics, due dates, what's submitted. Never grades or files." },
-      2: { link: 2, dir: "fwd", on: ["cubbies", "cram"], t: "After you say yes, Cubbie sends a course snapshot, or a battle built from your own notes." },
-      3: { link: 3, dir: "fwd", on: ["cram", "chat"], t: "Cramberry posts the game in the Discord group chat: picture cards and A–D buttons." },
-      4: { link: 3, dir: "back", on: ["chat", "cram"], t: "The squad answers. Right answers drain the boss's HP; wrong ones let it hit back." },
-      5: { link: 2, dir: "back", on: ["cram", "cubbies"], t: "Each recap goes only to that student's Cubbie: rank, what they missed and why." },
+      1: { link: 1, dir: "fwd", on: ["canvas", "cubbies"], t: "Your Cubbie checks your Canvas: topics and due dates. Never grades." },
+      2: { link: 2, dir: "fwd", on: ["cubbies", "cram"], t: "It writes a quiz from your notes and asks you before sending it." },
+      3: { link: 3, dir: "fwd", on: ["cram", "chat"], t: "Cramberry posts the quiz in your Discord group chat." },
+      4: { link: 3, dir: "back", on: ["chat", "cram"], t: "Everyone answers with A–D buttons." },
+      5: { link: 2, dir: "back", on: ["cram", "cubbies"], t: "Your results go only to your Cubbie: your rank and what you missed." },
     };
     let cur = 1, playing = false, timer;
     const cap = $("#loop-cap");
@@ -166,7 +173,7 @@
     });
   }
 
-  /* ---------- 5. games: laughing boss, bestiary, find your boss ---------- */
+  /* ---------- 4. games: laughing boss, fruit bosses ---------- */
   function games() {
     const peek = $("#games-boss");
     if (peek) {
@@ -179,23 +186,8 @@
       b.addEventListener("mouseenter", () => { if (!c._laughing) CB.sprites.draw(c, `boss-${f}-hurt`); });
       b.addEventListener("mouseleave", () => { if (!c._laughing) CB.sprites.draw(c, `boss-${f}`); });
       b.addEventListener("click", () => { CB.sprites.draw(c, `boss-${f}`); CB.laugh(c, f, 1500); });
-      b.setAttribute("aria-label", `${$("b", b).textContent}, ${$("span", b).textContent}. Press to make it laugh.`);
+      b.setAttribute("aria-label", `The ${$("b", b).textContent} boss. Press to make it laugh.`);
     });
-    const form = $("#findboss");
-    if (form) {
-      const out = $("#fb-sprite");
-      const art = { grape: "a grape", lime: "a lime", lemon: "a lemon", tangerine: "a tangerine", kiwi: "a kiwi" };
-      const run = () => {
-        const t = $("#fb-topic").value.trim() || "caches";
-        const f = CB.fruitFor(t);
-        CB.sprites.draw(out, `boss-${f}`);
-        out.classList.remove("pop-in"); void out.offsetWidth; out.classList.add("pop-in");
-        $("#fb-name").textContent = CB.bossName(t);
-        $("#fb-fruit").textContent = `${art[f]}, every time you battle "${t}"`;
-        setTimeout(() => CB.laugh(out, f, 1200), 400);
-      };
-      form.addEventListener("submit", (e) => { e.preventDefault(); run(); });
-    }
   }
 
   /* ---------- 6. card carousel + lightbox ---------- */
@@ -289,50 +281,16 @@
     $("#dc-try").addEventListener("click", () => send("midterm thursday and im so cooked on caches"));
   }
 
-  /* ---------- 8. tools, levels, badges ---------- */
+  /* ---------- 7. study tools: the commands people actually type ---------- */
   function tools() {
     const CMDS = [
-      ["/battle <topic>", "Boss battle: the squad quizzes together"], ["/lie <topic>", "Two Truths & a Lie"], ["/explain <topic>", "Explain It, graded 0–10"],
-      ["/daily", "Daily Duel; /daily 8pm schedules it"], ["/plan <topic>", "Study-time poll; pings everyone going 30 min before"],
-      ["/focus [minutes]", "Group Pomodoro"], ["/radar", "Everything due in 7 days, also posts at 9 AM"], ["/notes", "Upload PDF, txt or md; battles use them"],
-      ["/insights", "What Cramberry knows about your courses"], ["/profile", "Level, XP, badges and streaks"], ["/leaderboard", "Squad XP ranking"],
-      ["/link", "Get your private key to connect your Cubbie"], ["/ask_cubbie <topic>", "Ask every linked Cubbie for a battle from Canvas"],
-      ["/quiet", "Stop reading the chat"], ["/watch", "Let Cramberry suggest battles again"], ["/help", "Everything Cramberry can do"],
+      ["/plan", "pick a study time"], ["/focus", "group Pomodoro"], ["/radar", "what's due this week"],
+      ["/notes", "upload your slides"], ["/profile", "your level and streak"], ["/leaderboard", "who's on top"],
+      ["/link", "connect your Cubbie"], ["/quiet", "stop reading the chat"],
     ];
     const ul = $("#cmds");
-    if (ul) {
-      ul.innerHTML = CMDS.map(([c, d]) => `<li class="cmd-item"><code>${esc(c)}</code><p>${esc(d)}</p><button class="copy" type="button" data-copy="${esc(c.split(" ")[0])}" aria-label="Copy ${esc(c.split(" ")[0])}"></button></li>`).join("");
-      CB.fillCopyIcons(ul);
-    }
-    const LV = [[0, "🐣 Freshman"], [100, "📗 Sophomore"], [300, "📘 Junior"], [600, "📙 Senior"], [1000, "🎓 Grad Student"], [1500, "🧑‍🏫 TA"], [2200, "🧪 Researcher"], [3000, "👑 Professor"]];
-    const r = $("#xp-range");
-    if (r) {
-      $("#ladder").innerHTML = LV.map(([n, t]) => `<li>${t}<span>${n} XP</span></li>`).join("");
-      const upd = () => {
-        const xp = +r.value;
-        let i = 0; LV.forEach(([n], k) => { if (xp >= n) i = k; });
-        const start = LV[i][0], next = LV[i + 1] ? LV[i + 1][0] : 0;
-        $("#xp-title").textContent = LV[i][1];
-        $("#xp-num").textContent = xp + " XP";
-        $("#xp-fill").style.width = next ? ((xp - start) / (next - start)) * 100 + "%" : "100%";
-        $("#xp-next").textContent = next ? `${next - xp} XP to ${LV[i + 1][1]}` : "Max level. Professor of the squad.";
-        $$("#ladder li").forEach((li, k) => { li.classList.toggle("on", k === i); li.classList.toggle("done", k < i); });
-        r.setAttribute("aria-valuetext", `${xp} XP, ${LV[i][1].replace(/^\S+ /, "")}`);
-      };
-      r.addEventListener("input", upd);
-      upd();
-    }
-    const B = [["🗡️", "Boss Slayer", "Beat a boss"], ["🎯", "Perfect Round", "Every answer right"], ["🔥", "On Fire", "5 right in a row"], ["🕵️", "Lie Detector", "Spotted every lie"],
-      ["🧠", "Big Brain", "9+ in Explain It"], ["💰", "High Roller", "Won an all-in wager"], ["📅", "Habit Builder", "3-day Daily Duel streak"], ["🍅", "Deep Work", "3 focus sessions"]];
-    const shelf = $("#badges");
-    if (shelf) {
-      shelf.innerHTML = B.map(([e, n, d], i) => `<li><button type="button" aria-describedby="bt${i}"><span class="e" aria-hidden="true">${e}</span>${n}</button><span class="tip" role="tooltip" id="bt${i}">${d}</span></li>`).join("");
-      shelf.addEventListener("click", (e) => {
-        const li = e.target.closest("li");
-        if (!li) return;
-        $$("li", shelf).forEach((x) => x !== li && x.classList.remove("show"));
-        li.classList.toggle("show");
-      });
-    }
+    if (!ul) return;
+    ul.innerHTML = CMDS.map(([c, d]) => `<li class="cmd-item"><code>${esc(c)}</code><span>${esc(d)}</span><button class="copy" type="button" data-copy="${esc(c)}" aria-label="Copy ${esc(c)}"></button></li>`).join("");
+    CB.fillCopyIcons(ul);
   }
 })();

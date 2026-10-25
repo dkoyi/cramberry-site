@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Writes the four static pages with one shared header and footer. Run after editing a partial:
+"""Writes the static pages with one shared header and footer. Run after editing a partial:
     python tools/make_pages.py
 The output is plain HTML; Vercel serves it as is (no build step)."""
 from pathlib import Path
@@ -10,6 +10,18 @@ PAGES = ROOT / "tools" / "pages"
 ADD = "https://discord.com/oauth2/authorize?client_id=1563704377833689098&amp;scope=bot+applications.commands&amp;permissions=117760"
 REPO = "https://github.com/MalaikaKamranKhan/Track3"
 SKILL = REPO + "/blob/main/cubbie-skill/squad-link/SKILL.md"
+SETUP = REPO + "/blob/main/SETUP.md"
+# The demo video: paste the YouTube video id (the part after watch?v=) and run this script again.
+VIDEO_ID = ""
+
+
+def video():
+    if VIDEO_ID:
+        return (f'<iframe src="https://www.youtube-nocookie.com/embed/{VIDEO_ID}?rel=0" title="Cramberry demo video" '
+                'loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" '
+                'allowfullscreen></iframe>')
+    return ('<div class="video-soon"><canvas data-sprite="cramberry" data-scale="5" aria-hidden="true"></canvas>'
+            '<p>Demo video coming soon</p></div>')
 
 GH_SVG = ('<svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 '
           '5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52'
@@ -37,8 +49,8 @@ THEME_BOOT = """<script>
 })();
 </script>"""
 
-NAV = [("How it works", "index.html#how"), ("Games", "index.html#games"), ("Cubbie", "index.html#cubbie"),
-       ("Play", "play.html"), ("Setup", "setup.html"), ("Team", "index.html#team")]
+NAV = [("Demo", "index.html#top"), ("How it works", "index.html#how"), ("Cubbie", "index.html#cubbie"),
+       ("Games", "index.html#games"), ("Team", "index.html#team")]
 
 
 def head(title, desc, extra_css="", intro=False):
@@ -111,14 +123,14 @@ def footer():
         <ul>
           <li><a href="{REPO}" target="_blank" rel="noopener">GitHub repo</a></li>
           <li><a href="{REPO}#readme" target="_blank" rel="noopener">README</a></li>
-          <li><a href="{REPO}/blob/main/SETUP.md" target="_blank" rel="noopener">Setup guide</a></li>
+          <li><a href="{SETUP}" target="_blank" rel="noopener">Setup guide</a></li>
           <li><a href="{REPO}/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a></li>
         </ul>
       </div>
       <div>
         <h4>Try it</h4>
         <ul>
-          <li><a href="play.html">Play a demo battle</a></li>
+          <li><a href="{ADD}" target="_blank" rel="noopener">Add to Discord</a></li>
           <li><a href="dashboard.html">Squad dashboard (demo)</a></li>
           <li><a href="{SKILL}" target="_blank" rel="noopener">Cubbie skill (squad-link)</a></li>
           <li><a href="https://hackathon.cubbie.ai/" target="_blank" rel="noopener">Cubbie Hackathon</a></li>
@@ -138,7 +150,9 @@ def scripts(*names):
 
 
 def page(file, title, desc, body, active="", css="", js=(), body_class=""):
-    body = body.replace("{{ADD}}", ADD).replace("{{REPO}}", REPO).replace("{{SKILL}}", SKILL).replace("{{PLUS}}", PLUS_SVG).replace("{{GH}}", GH_SVG)
+    for key, val in {"ADD": ADD, "REPO": REPO, "SKILL": SKILL, "SETUP": SETUP, "PLUS": PLUS_SVG, "GH": GH_SVG,
+                     "VIDEO": video()}.items():
+        body = body.replace("{{" + key + "}}", val)
     extra_css = "".join(f'<link rel="stylesheet" href="css/{c}.css">' for c in css.split() if c)
     html = f"""{head(title, desc, extra_css, intro='id="intro"' in body)}
 <body class="{body_class}">
@@ -158,13 +172,7 @@ def page(file, title, desc, body, active="", css="", js=(), body_class=""):
 if __name__ == "__main__":
     page("index.html", "Cramberry · your study squad's boss battle, right in Discord",
          "A pixel berry knight that turns a study group's Discord into a quiz game, and talks to each student's own Cubbie.",
-         (PAGES / "home.html").read_text(encoding="utf-8"), css="home", js=("battle", "home"), body_class="home")
-    page("play.html", "Play · Cramberry demo battle",
-         "Fight the Caches Boss in your browser with the real Cramberry battle rules.",
-         (PAGES / "play.html").read_text(encoding="utf-8"), active="Play", css="", js=("battle", "play"), body_class="play-page")
+         (PAGES / "home.html").read_text(encoding="utf-8"), css="home", js=("home",), body_class="home")
     page("dashboard.html", "Squad dashboard · Cramberry (demo)",
          "What a study squad looks like after a week of Cramberry: leaderboard, streaks, battles, deadlines and weak spots.",
          (PAGES / "dashboard.html").read_text(encoding="utf-8"), css="sub", js=("dashboard",), body_class="dash-page")
-    page("setup.html", "Setup · run your own Cramberry",
-         "Install Cramberry in your own Discord server and connect your Cubbie, step by step.",
-         (PAGES / "setup.html").read_text(encoding="utf-8"), active="Setup", css="sub", js=("setup",), body_class="setup-page")

@@ -100,14 +100,6 @@
     }, ms);
   };
 
-  /** Topic → fruit, the bot's rule: sum of UTF-8 bytes of the lower-cased topic, mod 5. */
-  CB.FRUITS = ["grape", "lime", "lemon", "tangerine", "kiwi"];
-  CB.fruitFor = function (topic) {
-    const bytes = new TextEncoder().encode(String(topic).toLowerCase());
-    let s = 0;
-    for (const b of bytes) s += b;
-    return CB.FRUITS[s % 5];
-  };
   CB.bossName = (topic) =>
     "The " + String(topic).trim().replace(/\s+/g, " ").replace(/\b\w/g, (m) => m.toUpperCase()) + " Boss";
 
