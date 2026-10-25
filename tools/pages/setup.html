@@ -1,0 +1,133 @@
+<section class="page-head cream" aria-labelledby="setup-h">
+  <div class="wrap">
+    <p class="kicker">Setup</p>
+    <h1 class="h2" id="setup-h">Run your own Cramberry.</h1>
+    <p class="lede muted">About 20 minutes end to end. Steps 1–5 get the bot playing in Discord. Steps 6–7 connect Cubbie. Tick steps as you go; this page remembers.</p>
+    <div class="setup-bar">
+      <div class="os-tabs" role="tablist" aria-label="Your computer">
+        <button role="tab" id="tab-win" aria-selected="true" data-os="win">Windows</button>
+        <button role="tab" id="tab-mac" aria-selected="false" data-os="mac">macOS / Linux</button>
+      </div>
+      <div class="progress" aria-live="polite"><div class="pbar"><i id="pfill"></i></div><span id="ptext">0 of 7 done</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band cream-2 setup" data-os="win">
+  <div class="wrap setup-wrap">
+    <div class="setup-peek" aria-hidden="true"><canvas data-sprite="cramberry" data-scale="4"></canvas></div>
+    <ol class="checklist">
+
+      <li class="st" data-step="1">
+        <div class="tick"><input type="checkbox" id="ck-1" aria-label="Step 1 done: What you need"><label class="box" for="ck-1" aria-hidden="true"></label><span class="sn" aria-hidden="true">1</span><h2>What you need</h2></div>
+        <div class="st-body">
+          <ul>
+            <li><b>Python 3.10 or newer</b> (<a href="https://www.python.org/downloads/" target="_blank" rel="noopener">python.org</a>). Check with <code>python --version</code>.</li>
+            <li><b>A Discord server</b> where you can add bots. Your own test server is perfect.</li>
+            <li><b>Optional:</b> an AI key (Gemini is free). Without one, Cramberry runs on a built-in caches question bank.</li>
+            <li><b>Optional:</b> a Cubbie account, to link your own Cubbie. Everything except the Cubbie features works without it.</li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="st" data-step="2">
+        <div class="tick"><input type="checkbox" id="ck-2" aria-label="Step 2 done: Install"><label class="box" for="ck-2" aria-hidden="true"></label><span class="sn" aria-hidden="true">2</span><h2>Install</h2></div>
+        <div class="st-body">
+          <div class="cmd-wrap os-win"><pre class="cmd" id="c-install-win">git clone https://github.com/MalaikaKamranKhan/Track3.git
+cd Track3
+python -m venv .venv
+.venv\Scripts\python -m pip install -r requirements.txt
+copy .env.example .env</pre><button class="copy" type="button" data-copy="#c-install-win" aria-label="Copy install commands"></button></div>
+          <div class="cmd-wrap os-mac"><pre class="cmd" id="c-install-mac">git clone https://github.com/MalaikaKamranKhan/Track3.git
+cd Track3
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+cp .env.example .env</pre><button class="copy" type="button" data-copy="#c-install-mac" aria-label="Copy install commands"></button></div>
+          <p class="muted">That installs discord.py, FastAPI, Uvicorn, httpx, pypdf and Pillow into a private <code>.venv</code> folder. Your settings live in <code>.env</code>, which is never committed.</p>
+        </div>
+      </li>
+
+      <li class="st" data-step="3">
+        <div class="tick"><input type="checkbox" id="ck-3" aria-label="Step 3 done: Create the Discord bot"><label class="box" for="ck-3" aria-hidden="true"></label><span class="sn" aria-hidden="true">3</span><h2>Create the Discord bot</h2></div>
+        <div class="st-body">
+          <ol class="sub">
+            <li>Open the <a href="https://discord.com/developers/applications" target="_blank" rel="noopener">Discord Developer Portal</a> → <b>New Application</b> → name it <b>Cramberry</b>. Upload <a href="assets/logo/avatar.png" target="_blank">avatar.png</a> as the app icon.</li>
+            <li><b>Bot</b> tab → <b>Reset Token</b> → paste it after <code>DISCORD_TOKEN=</code> in <code>.env</code>. Turn on <b>Message Content Intent</b> and save. Without it, "im cooked" and Explain It answers never fire.</li>
+            <li><b>OAuth2 → URL Generator</b>: scopes <code>bot</code> and <code>applications.commands</code>; permissions <b>Send Messages</b>, <b>Read Message History</b>, <b>Embed Links</b>, <b>Attach Files</b>. Open the URL and add the bot to your server.</li>
+            <li>In Discord turn on <b>Settings → Advanced → Developer Mode</b>, right-click your server → <b>Copy Server ID</b> → paste after <code>DISCORD_GUILD_ID=</code>. Slash commands then appear instantly.</li>
+          </ol>
+        </div>
+      </li>
+
+      <li class="st" data-step="4">
+        <div class="tick"><input type="checkbox" id="ck-4" aria-label="Step 4 done: Pick an AI"><label class="box" for="ck-4" aria-hidden="true"></label><span class="sn" aria-hidden="true">4</span><h2>Pick an AI</h2></div>
+        <div class="st-body">
+          <p>Set these in <code>.env</code>. Leave <code>LLM_MODEL</code> empty to use the default model.</p>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Provider</th><th>Settings</th></tr></thead>
+            <tbody>
+              <tr><td>Offline (no key)</td><td><code>LLM_PROVIDER=fake</code></td></tr>
+              <tr><td>Gemini (free key from <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">AI Studio</a>)</td><td><code>LLM_PROVIDER=gemini</code> · <code>GEMINI_API_KEY=...</code></td></tr>
+              <tr><td>Claude</td><td><code>LLM_PROVIDER=anthropic</code> · <code>ANTHROPIC_API_KEY=...</code></td></tr>
+              <tr><td>OpenAI</td><td><code>LLM_PROVIDER=openai</code> · <code>OPENAI_API_KEY=...</code></td></tr>
+              <tr><td>AWS Bedrock</td><td><code>LLM_PROVIDER=bedrock</code> · AWS credentials · <code>AWS_REGION</code> · <code>pip install boto3</code></td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </li>
+
+      <li class="st" data-step="5">
+        <div class="tick"><input type="checkbox" id="ck-5" aria-label="Step 5 done: Start the bot"><label class="box" for="ck-5" aria-hidden="true"></label><span class="sn" aria-hidden="true">5</span><h2>Start the bot</h2></div>
+        <div class="st-body">
+          <div class="cmd-wrap os-win"><pre class="cmd" id="c-start-win">.venv\Scripts\python -m cramberry.main</pre><button class="copy" type="button" data-copy="#c-start-win" aria-label="Copy start command"></button></div>
+          <div class="cmd-wrap os-mac"><pre class="cmd" id="c-start-mac">.venv/bin/python -m cramberry.main</pre><button class="copy" type="button" data-copy="#c-start-mac" aria-label="Copy start command"></button></div>
+          <p>Wait for <code>Discord bot online as Cramberry#…</code>, then type <code>/battle caches</code> in your server.</p>
+          <p class="muted"><b>One copy per bot token.</b> If two people run the same token, every command fails with "interaction failed". Stop it with <kbd>Ctrl</kbd>+<kbd>C</kbd>.</p>
+        </div>
+      </li>
+
+      <li class="st" data-step="6">
+        <div class="tick"><input type="checkbox" id="ck-6" aria-label="Step 6 done: Give it an HTTPS address (for Cubbie)"><label class="box" for="ck-6" aria-hidden="true"></label><span class="sn" aria-hidden="true">6</span><h2>Give it an HTTPS address (for Cubbie)</h2></div>
+        <div class="st-body">
+          <p>Cubbie calls your bot over the internet, so <code>localhost</code> isn't enough. Keep this running in a second terminal.</p>
+          <p><b>ngrok</b> (the address never changes):</p>
+          <div class="cmd-wrap"><pre class="cmd" id="c-ngrok">ngrok http --url=&lt;your-domain&gt;.ngrok-free.dev 8000</pre><button class="copy" type="button" data-copy="#c-ngrok" aria-label="Copy ngrok command"></button></div>
+          <p><b>cloudflared</b> (no account; new address every restart):</p>
+          <div class="cmd-wrap"><pre class="cmd" id="c-cf">cloudflared tunnel --url http://localhost:8000</pre><button class="copy" type="button" data-copy="#c-cf" aria-label="Copy cloudflared command"></button></div>
+          <ol class="sub">
+            <li>Put the <code>https://</code> address in <code>PUBLIC_URL=</code> in <code>.env</code> and restart the bot.</li>
+            <li>Put the same address in <code>SERVER = "..."</code> at the top of <code>cubbie-skill/squad-link/scripts/squad.py</code>, commit and push.</li>
+            <li>Check <code>https://&lt;your-address&gt;/health</code> shows <code>{"ok":true,"bots":["discord"]}</code>.</li>
+            <li>If Cubbie already has the skill, text it <b>update squad-link</b>.</li>
+          </ol>
+        </div>
+      </li>
+
+      <li class="st" data-step="7">
+        <div class="tick"><input type="checkbox" id="ck-7" aria-label="Step 7 done: Connect Cubbie"><label class="box" for="ck-7" aria-hidden="true"></label><span class="sn" aria-hidden="true">7</span><h2>Connect Cubbie</h2></div>
+        <div class="st-body">
+          <div class="say-table">
+            <div class="say"><span class="chip"><code>install https://github.com/MalaikaKamranKhan/Track3/blob/main/cubbie-skill/squad-link/SKILL.md</code><button class="copy" type="button" data-copy="install https://github.com/MalaikaKamranKhan/Track3/blob/main/cubbie-skill/squad-link/SKILL.md" aria-label="Copy install message"></button></span><p>Installs the squad-link skill.</p></div>
+            <div class="say"><span class="chip"><code>/link</code><button class="copy" type="button" data-copy="/link" aria-label="Copy /link"></button></span><p>In your Discord channel. The key is shown only to you.</p></div>
+            <div class="say"><span class="chip"><code>link my study squad</code><button class="copy" type="button" data-copy="link my study squad" aria-label="Copy message"></button></span><p>Cubbie sends a <b>Provide details · Cubbie</b> private page. Paste your key there, never in the chat.</p></div>
+            <div class="say"><span class="chip"><code>check my squad and share my course snapshot</code><button class="copy" type="button" data-copy="check my squad and share my course snapshot" aria-label="Copy message"></button></span><p>Shares course codes, topics, due dates and submission status. Never grades or files.</p></div>
+            <div class="say"><span class="chip"><code>challenge my squad on caches</code><button class="copy" type="button" data-copy="challenge my squad on caches" aria-label="Copy message"></button></span><p>Cubbie shows the first question and posts only after you say yes.</p></div>
+            <div class="say"><span class="chip"><code>how did the squad battle go?</code><button class="copy" type="button" data-copy="how did the squad battle go?" aria-label="Copy message"></button></span><p>Your private recap: rank, what you missed and why.</p></div>
+            <div class="say"><span class="chip"><code>update squad-link</code><button class="copy" type="button" data-copy="update squad-link" aria-label="Copy message"></button></span><p>After the bot's server address changes.</p></div>
+          </div>
+        </div>
+      </li>
+    </ol>
+
+    <div class="trouble">
+      <h2 class="h3">Troubleshooting</h2>
+      <details><summary>Slash commands don't show up</summary><p>Check <code>DISCORD_GUILD_ID</code> is your server and the invite included <code>applications.commands</code>, then restart the bot and reload Discord (<kbd>Ctrl</kbd>+<kbd>R</kbd>).</p></details>
+      <details><summary>Every command says "interaction failed"</summary><p>Another copy of the bot is running with the same token. Stop it (the bot shows online in the member list while it runs).</p></details>
+      <details><summary>"im cooked" or Explain It answers do nothing</summary><p>Turn on <b>Message Content Intent</b> (step 3), and check nobody ran <code>/quiet</code> (<code>/watch</code> turns it back on).</p></details>
+      <details><summary>Battles post without pictures</summary><p>Add the <b>Attach Files</b> permission to the bot's role, and check <code>IMAGES=on</code>.</p></details>
+      <details><summary>Cubbie says the bot "rejected the saved key"</summary><p>The key is from another bot or <code>data/state.json</code> was reset: type <code>/link</code> in Discord, text <b>link my study squad</b>, and enter the new key on the private page.</p></details>
+      <details><summary>Cubbie can't reach the bot ("unreachable")</summary><p>Check the tunnel and the bot are running, <code>SERVER</code> in <code>squad.py</code> matches your address and is pushed, then text Cubbie <b>update squad-link</b>.</p></details>
+      <p class="muted">More fixes in the <a href="{{REPO}}/blob/main/SETUP.md#9-troubleshooting" target="_blank" rel="noopener">full setup guide</a>.</p>
+    </div>
+  </div>
+</section>

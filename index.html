@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cramberry · your study squad's boss battle, right in Discord</title>
+<meta name="description" content="A pixel berry knight that turns a study group's Discord into a quiz game, and talks to each student's own Cubbie.">
+<meta name="theme-color" content="#f6f0e4">
+<meta property="og:title" content="Cramberry · your study squad's boss battle, right in Discord">
+<meta property="og:description" content="A pixel berry knight that turns a study group's Discord into a quiz game, and talks to each student's own Cubbie.">
+<meta property="og:image" content="assets/logo/social-preview.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="assets/logo/favicon-64.png">
+<link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/PixelifySans-Medium.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="assets/fonts/Outfit-Bold.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/home.css">
+</head>
+<body class="home">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap hdr">
+    <a class="logo" href="index.html" aria-label="Cramberry home">
+      <canvas data-sprite="berry" data-scale="3" aria-hidden="true"></canvas>
+      <span class="logo-word" aria-hidden="true">Cramberry</span>
+    </a>
+    <nav class="nav" aria-label="Main"><a href="index.html#how">How it works</a><a href="index.html#games">Games</a><a href="index.html#cubbie">Cubbie</a><a href="play.html">Play</a><a href="setup.html">Setup</a><a href="index.html#team">Team</a></nav>
+    <div class="hdr-cta">
+      <a class="btn add-discord" href="https://discord.com/oauth2/authorize?client_id=1563704377833689098&amp;scope=bot+applications.commands&amp;permissions=117760" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 10 10" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M4 1h2v3h3v2H6v3H4V6H1V4h3z"/></svg>Add to Discord</a>
+      <a class="icon-btn gh" href="https://github.com/MalaikaKamranKhan/Track3" target="_blank" rel="noopener" aria-label="Cramberry on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>
+      <button class="icon-btn burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><svg viewBox="0 0 12 12" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M1 2h10v2H1zm0 3h10v2H1zm0 3h10v2H1z"/></svg></button>
+    </div>
+  </div>
+</header>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="sheet-top">
+    <a class="logo" href="index.html"><canvas data-sprite="berry" data-scale="2" aria-hidden="true"></canvas><span class="logo-word">Cramberry</span></a>
+    <button class="icon-btn sheet-close" type="button" aria-label="Close menu"><svg viewBox="0 0 12 12" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M2 1h2v1h1v1h2V2h1V1h2v2H9v1H8v1H7v2h1v1h1v1h1v2H8v-1H7v-1H5v1H4v1H2V9h1V8h1V7h1V5H4V4H3V3H2z"/></svg></button>
+  </div>
+  <nav aria-label="Mobile"><a href="index.html#how">How it works</a><a href="index.html#games">Games</a><a href="index.html#cubbie">Cubbie</a><a href="play.html">Play</a><a href="setup.html">Setup</a><a href="index.html#team">Team</a><a href="dashboard.html">Squad dashboard</a></nav>
+  <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1563704377833689098&amp;scope=bot+applications.commands&amp;permissions=117760" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 10 10" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M4 1h2v3h3v2H6v3H4V6H1V4h3z"/></svg>Add to Discord</a>
+</div>
+<main id="main">
+<!-- intro overlay (FLIP into the header logo) -->
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro-logo"><canvas class="ib spr" width="20" height="22"></canvas><span class="intro-word"></span></div>
+  <div class="intro-peek"><canvas data-sprite="boss-grape" data-scale="7" data-fluid="1"></canvas></div>
+  <span class="intro-skip">click to skip</span>
+</div>
+
+<!-- 1. HERO -->
+<section class="band cream hero" id="top" aria-labelledby="hero-h">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="kicker">Cubbie Hackathon · Track 3</p>
+      <h1 class="h1" id="hero-h">Your study squad's <span class="ul">boss battle<svg viewBox="0 0 300 16" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2 10 H22 V5 H42 V10 H62 V5 H82 V10 H102 V5 H122 V10 H142 V5 H162 V10 H182 V5 H202 V10 H222 V5 H242 V10 H262 V5 H282 V10 H298"/></svg></span>, right in Discord.</h1>
+      <p class="lede">A pixel berry knight that turns a study group's Discord into a quiz game, and talks to each student's own Cubbie.</p>
+      <div class="btn-row">
+        <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1563704377833689098&amp;scope=bot+applications.commands&amp;permissions=117760" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 10 10" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M4 1h2v3h3v2H6v3H4V6H1V4h3z"/></svg>Add to Discord</a>
+        <a class="btn btn-2 try-battle" href="play.html" data-arena>⚔️ Try a battle</a>
+        <a class="qlink" href="https://github.com/MalaikaKamranKhan/Track3" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+      <ul class="trust">
+        <li><span class="ti ti-open" aria-hidden="true"></span>Free and open source (MIT)</li>
+        <li><span class="ti ti-cubbie" aria-hidden="true"></span>Works with your own Cubbie</li>
+        <li><span class="ti ti-lock" aria-hidden="true"></span>Your misses stay private</li>
+      </ul>
+    </div>
+    <div class="hero-art" aria-label="A live boss battle: Cramberry versus the grape Caches Boss">
+      <div class="hk-back hk-1" aria-hidden="true"></div>
+      <div class="hk-back hk-2" aria-hidden="true"></div>
+      <div class="mini-card night">
+        <div class="mc-top"><span class="mc-k">BOSS BATTLE</span><span class="mc-tag" id="mc-tag">Q1 of 5</span></div>
+        <h2 class="mc-title">The Caches Boss</h2>
+        <div class="mc-stage">
+          <canvas class="mc-hero" data-sprite="cramberry" data-scale="4" aria-hidden="true"></canvas>
+          <div class="mc-boss">
+            <div class="bubble" aria-hidden="true">HA HA HA!</div>
+            <canvas id="mc-boss" data-sprite="boss-grape" data-box="22" data-scale="5" aria-hidden="true"></canvas>
+            <div class="dmg-host" aria-hidden="true"></div>
+          </div>
+        </div>
+        <div class="hplabel"><span>BOSS HP</span><b id="mc-hpn">100%</b></div>
+        <div class="hpbar"><i id="mc-hp"></i></div>
+        <div class="hplabel" style="margin-top:10px"><span>SQUAD HP</span><b id="mc-sqn">100%</b></div>
+        <div class="hpbar squad"><i id="mc-sq"></i></div>
+        <div class="mc-abcd" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. WHY -->
+<section class="band cream-2" id="why" aria-labelledby="why-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">Why it exists</p>
+      <h2 class="h2 reveal-h" id="why-h">Group study is broken in three ways.</h2>
+    </div>
+    <div class="why-grid">
+      <article class="why-card pxb reveal"><span class="why-n">1</span><h3 class="h3">Studying alone is boring.</h3><p class="muted">So you don't, until the night before.</p></article>
+      <article class="why-card pxb reveal"><span class="why-n">2</span><h3 class="h3">Group study turns into chatting.</h3><p class="muted">Ten memes later, nobody has opened the slides.</p></article>
+      <article class="why-card pxb reveal"><span class="why-n">3</span><h3 class="h3">Nobody knows what the group doesn't understand.</h3><p class="muted">Everyone nods. Everyone is lost on the same thing.</p></article>
+      <article class="why-card answer reveal">
+        <canvas data-sprite="cramberry" data-scale="4" aria-hidden="true"></canvas>
+        <div>
+          <h3 class="h3">Cramberry makes the group chat itself the study session.</h3>
+          <p>Someone says "im so cooked on caches", and two minutes later the whole squad is fighting the Caches Boss together. Every right answer drains its HP; every wrong one lets it hit back. When the fight ends, the squad sees its weakest topic, and each student's Cubbie quietly texts them what they missed.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 3. HOW IT WORKS: the Cubbie loop -->
+<section class="band night" id="how" aria-labelledby="how-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">How the squad is linked</p>
+      <h2 class="h2 reveal-h" id="how-h">Each Cubbie reads Canvas in private. Cramberry turns it into one game for the group.</h2>
+      <p class="lede muted">Cubbie is each student's personal AI in iMessage. Our <b>squad-link</b> Cubbie Skill connects it to Cramberry.</p>
+    </div>
+
+    <div class="loop" id="loop" data-show="all">
+      <div class="loop-controls">
+        <div class="steps" role="tablist" aria-label="Steps of the loop">
+          <button role="tab" class="step-b" data-step="1" aria-selected="true">1</button>
+          <button role="tab" class="step-b" data-step="2" aria-selected="false">2</button>
+          <button role="tab" class="step-b" data-step="3" aria-selected="false">3</button>
+          <button role="tab" class="step-b" data-step="4" aria-selected="false">4</button>
+          <button role="tab" class="step-b" data-step="5" aria-selected="false">5</button>
+          <button class="btn btn-2 btn-sm loop-play" type="button" aria-pressed="true">❚❚ Pause</button>
+        </div>
+        <div class="scope" role="radiogroup" aria-label="Highlight">
+          <label><input type="radio" name="scope" value="all" checked><span>Everything</span></label>
+          <label><input type="radio" name="scope" value="shared"><span>Shared</span></label>
+          <label><input type="radio" name="scope" value="private"><span>Private</span></label>
+        </div>
+      </div>
+
+      <div class="loop-row">
+        <article class="lp" data-p="canvas" data-scope="private">
+          <span class="lp-bar" style="--c:#ec4c58"></span>
+          <h3 class="lp-h">Canvas</h3><p class="lp-sub">each student's courses</p>
+          <div class="lp-art"><span class="canvas-stack" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <ul class="lp-list"><li data-scope="private">topics</li><li data-scope="private">due dates</li><li data-scope="private">lecture notes</li><li data-scope="private">submissions</li></ul>
+        </article>
+        <div class="lp-link" data-link="1"><span class="lane fwd"><b class="pkt"></b></span><span class="lane back"><b class="pkt"></b></span><span class="lbadge f">1</span></div>
+        <article class="lp" data-p="cubbies" data-scope="private">
+          <span class="lp-bar" style="--c:#3a8cef"></span>
+          <h3 class="lp-h">Your Cubbies</h3><p class="lp-sub">private · in iMessage</p>
+          <div class="lp-art cubbies">
+            <figure><img src="assets/cubbie/cubbie-official.svg" width="72" height="64" alt="" loading="lazy"><figcaption>Malaika</figcaption></figure>
+            <figure><img src="assets/cubbie/cubbie-official.svg" width="72" height="64" alt="" loading="lazy"><figcaption>Sunny</figcaption></figure>
+            <figure><img src="assets/cubbie/cubbie-official.svg" width="72" height="64" alt="" loading="lazy"><figcaption>Dhanush</figcaption></figure>
+          </div>
+          <ul class="lp-list"><li data-scope="private">reads your Canvas</li><li data-scope="private">builds battles</li><li data-scope="private">asks before posting</li><li data-scope="private">texts your recap</li></ul>
+        </article>
+        <div class="lp-link" data-link="2"><span class="lane fwd"><b class="pkt"></b></span><span class="lane back"><b class="pkt"></b></span><span class="lbadge f">2</span><span class="lbadge b">5</span></div>
+        <article class="lp" data-p="cram" data-scope="both">
+          <span class="lp-bar" style="--c:#b8326e"></span>
+          <h3 class="lp-h">Cramberry</h3><p class="lp-sub">the server · games + AI</p>
+          <div class="lp-art"><canvas data-sprite="cramberry" data-scale="4" aria-hidden="true"></canvas></div>
+          <ul class="lp-list"><li data-scope="shared">runs the games</li><li data-scope="shared">writes questions with AI</li><li data-scope="private">API for Cubbie</li><li data-scope="private">misses stay private</li></ul>
+        </article>
+        <div class="lp-link" data-link="3"><span class="lane fwd"><b class="pkt"></b></span><span class="lane back"><b class="pkt"></b></span><span class="lbadge f">3</span><span class="lbadge b">4</span></div>
+        <article class="lp" data-p="chat" data-scope="shared">
+          <span class="lp-bar" style="--c:#5865f2"></span>
+          <h3 class="lp-h">The group chat</h3><p class="lp-sub">shared · Discord</p>
+          <div class="dc-mini" aria-label="A Discord channel where Cramberry posts a Caches Boss battle">
+            <p class="dc-ch"># study-squad</p>
+            <p class="dc-msg"><b style="color:#ec4c58">Sunny</b> im so cooked on caches 😭</p>
+            <div class="dc-emb"><b>⚔️ Caches Boss</b><span>Boss HP · Q2 of 5</span><i class="dc-hp"></i><span class="dc-abcd"><i>A</i><i>B</i><i>C</i><i>D</i></span></div>
+            <p class="dc-msg"><b style="color:#3a8cef">Malaika</b> B!! 3 in a row ⚡</p>
+          </div>
+          <ul class="lp-list"><li data-scope="shared">questions</li><li data-scope="shared">answers</li><li data-scope="shared">scores</li></ul>
+        </article>
+      </div>
+      <p class="loop-cap" id="loop-cap" aria-live="polite"></p>
+      <div class="loop-notes">
+        <p><b>Cubbie can't receive pushes,</b> so it checks in with Cramberry like a mailbox.</p>
+        <p><b>Right moments:</b> from everyone's snapshots Cramberry notices "3 of you have the midterm Thursday" or "the squad keeps missing associativity", and offers a battle.</p>
+        <p><b>Shared with the squad:</b> questions, answers, scores. <b>Private to you:</b> your Canvas, your misses, who tagged you. Cramberry keeps only the last ~20 chat messages in memory (never stored); <code>/quiet</code> turns chat reading off.</p>
+        <p><b>No Cubbie?</b> Everything except the Cubbie features still works.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. CUBBIE FROM YOUR PHONE -->
+<section class="band cream" id="cubbie" aria-labelledby="cubbie-h">
+  <div class="wrap phone-grid">
+    <div>
+      <div class="sec-head">
+        <p class="kicker">Cubbie, from your phone</p>
+        <h2 class="h2 reveal-h" id="cubbie-h">Text your Cubbie. It talks to the squad for you.</h2>
+        <p class="lede muted">Tap a message to send it. These are Cubbie's real replies, from our test runs. The key from <code>/link</code> goes on Cubbie's private page, never in the chat.</p>
+      </div>
+      <ul class="phrases" id="phrases"></ul>
+      <p class="muted small-note">If a key is old, Cubbie says the bot "rejected the saved key": type <code>/link</code> again and resend <b>link my study squad</b>.</p>
+    </div>
+    <div class="phone-wrap">
+      <div class="phone" aria-label="iMessage conversation with Cubbie">
+        <div class="ph-notch" aria-hidden="true"></div>
+        <div class="ph-head"><img src="assets/cubbie/cubbie-official.svg" width="44" height="40" alt=""><b>Cubbie</b></div>
+        <div class="ph-body" id="ph-body" aria-live="polite">
+          <div class="bub them">Hey! What can I help with?</div>
+        </div>
+        <div class="ph-input" aria-hidden="true"><span>iMessage</span></div>
+      </div>
+      <p class="ph-cap">Only you see this chat. The squad sees the battle, never your recap.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5. GAMES -->
+<section class="band cream-2" id="games" aria-labelledby="games-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">The games</p>
+      <h2 class="h2 reveal-h" id="games-h">Four ways to study without it feeling like studying.</h2>
+    </div>
+    <div class="games-wrap">
+      <div class="peek-boss" id="games-boss" aria-hidden="true">
+        <div class="bubble">HA HA HA!</div>
+        <canvas data-sprite="boss-grape" data-box="22" data-scale="5"></canvas>
+      </div>
+      <div class="games-grid">
+        <article class="game pxb reveal"><div class="g-ico"><canvas data-sprite="boss-grape" data-box="22" data-scale="3" aria-hidden="true"></canvas></div>
+          <h3 class="h3">⚔️ Boss Battle</h3><code class="g-cmd">/battle &lt;topic&gt;</code>
+          <p>Everyone answers A–D. Right answers damage the boss; wrong ones let it hit the squad back. 3 in a row is a ⚡ critical hit, one 🎲 50/50 per battle, and the final strike lets you 💰 wager half or all in.</p></article>
+        <article class="game pxb reveal"><div class="g-ico"><canvas data-sprite="boss-lie" data-box="22" data-scale="3" aria-hidden="true"></canvas></div>
+          <h3 class="h3">🕵️ Two Truths &amp; a Lie</h3><code class="g-cmd">/lie &lt;topic&gt;</code>
+          <p>Three statements, one is a plausible misconception. Find the lie before the dragonfruit liar wins.</p></article>
+        <article class="game pxb reveal"><div class="g-ico"><canvas data-sprite="berry" data-scale="3" aria-hidden="true"></canvas></div>
+          <h3 class="h3">🎤 Explain It</h3><code class="g-cmd">/explain &lt;topic&gt;</code>
+          <p>Cramberry calls on someone to explain a concept in their own words. The AI grades it 0–10 and says what to add. Pass, and it's open floor for half XP.</p></article>
+        <article class="game pxb reveal"><div class="g-ico"><canvas data-sprite="cramberry" data-scale="3" aria-hidden="true"></canvas></div>
+          <h3 class="h3">📅 Daily Duel</h3><code class="g-cmd">/daily</code>
+          <p>One question a day to keep your streak and the squad streak alive. <code>/daily 8pm</code> schedules it, <code>/daily off</code> stops it.</p></article>
+      </div>
+    </div>
+
+    <div class="bestiary-head">
+      <h3 class="h3">The boss bestiary</h3>
+      <p class="muted">Each topic gets its own fruit boss, always the same one for the same topic. Below 40% HP a boss gets a bandage and one eye shut; at 0 it turns grey. Hover to hurt one, click to make it laugh.</p>
+    </div>
+    <ul class="bestiary" id="bestiary">
+      <li><button type="button" data-fruit="grape" style="--c:var(--grape)"><canvas data-sprite="boss-grape" data-box="22" data-scale="4" aria-hidden="true"></canvas><b>Grape</b><span>caches</span></button></li>
+      <li><button type="button" data-fruit="lime" style="--c:var(--lime)"><canvas data-sprite="boss-lime" data-box="22" data-scale="4" aria-hidden="true"></canvas><b>Lime</b><span>recursion</span></button></li>
+      <li><button type="button" data-fruit="lemon" style="--c:var(--lemon)"><canvas data-sprite="boss-lemon" data-box="22" data-scale="4" aria-hidden="true"></canvas><b>Lemon</b><span>TCP</span></button></li>
+      <li><button type="button" data-fruit="tangerine" style="--c:var(--tangerine)"><canvas data-sprite="boss-tangerine" data-box="22" data-scale="4" aria-hidden="true"></canvas><b>Tangerine</b><span>floating point</span></button></li>
+      <li><button type="button" data-fruit="kiwi" style="--c:var(--kiwi)"><canvas data-sprite="boss-kiwi" data-box="22" data-scale="4" aria-hidden="true"></canvas><b>Kiwi</b><span>sorting</span></button></li>
+      <li><button type="button" data-fruit="lie" style="--c:var(--liar)"><canvas data-sprite="boss-lie" data-box="22" data-scale="4" aria-hidden="true"></canvas><b>Dragonfruit liar</b><span>Two Truths &amp; a Lie</span></button></li>
+    </ul>
+
+    <form class="findboss pxb" id="findboss" autocomplete="off">
+      <div class="fb-in">
+        <label for="fb-topic" class="fb-label">Find your boss</label>
+        <p class="muted">Type what you're cooked on. This is the bot's real rule: the topic's letters pick the fruit.</p>
+        <div class="fb-row"><input id="fb-topic" name="topic" type="text" placeholder="e.g. caches, recursion, TCP" maxlength="60"><button class="btn btn-sm" type="submit">Find it</button></div>
+      </div>
+      <div class="fb-out" aria-live="polite">
+        <canvas id="fb-sprite" data-sprite="boss-grape" data-box="22" data-scale="5" aria-hidden="true"></canvas>
+        <div><b id="fb-name">The Caches Boss</b><span id="fb-fruit" class="muted">a grape</span></div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- 6. WHAT THE SQUAD SEES -->
+<section class="band night" id="cards" aria-labelledby="cards-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">What the squad sees</p>
+      <h2 class="h2 reveal-h" id="cards-h">The real picture cards Cramberry posts in Discord.</h2>
+    </div>
+  </div>
+  <div class="carousel" id="carousel" tabindex="0" aria-label="Battle cards, scroll sideways">
+    <figure><button type="button" data-full="assets/readme/card-battle.png"><img src="assets/readme/card-battle.png" width="960" height="380" alt="Battle card: the lime Recursion Boss at full HP, question 2 of 5, with a MISS tag" loading="lazy"></button><figcaption>A miss. The Recursion Boss is untouched on question 2.</figcaption></figure>
+    <figure><button type="button" data-full="assets/readme/card-hurt.png"><img src="assets/readme/card-hurt.png" width="960" height="380" alt="Battle card: CRIT! The lemon TCP Protocol Stack Boss, hurt with a bandage, at 30% HP" loading="lazy"></button><figcaption>Crit! Under 40% HP the boss gets a bandage and one eye shut.</figcaption></figure>
+    <figure><button type="button" data-full="assets/readme/card-liar.png"><img src="assets/readme/card-liar.png" width="960" height="380" alt="Two Truths and a Lie card: the dragonfruit liar boss, caches, question 1 of 5" loading="lazy"></button><figcaption>Two Truths &amp; a Lie against the dragonfruit liar.</figcaption></figure>
+    <figure><button type="button" data-full="assets/readme/card-defeated.png"><img src="assets/readme/card-defeated.png" width="960" height="380" alt="Battle card: the Sorting Boss defeated, grey with X eyes, 0% HP" loading="lazy"></button><figcaption>0 HP: the boss turns grey with X eyes.</figcaption></figure>
+    <figure><button type="button" data-full="assets/readme/card-victory.png"><img src="assets/readme/card-victory.png" width="960" height="450" alt="Victory card: the Floating Point Boss defeated, podium with Malaika first, Sunny second, Dhanush third, weak spot rounding" loading="lazy"></button><figcaption>Victory: the podium and the squad's weak spot.</figcaption></figure>
+    <figure><button type="button" data-full="assets/readme/card-wiped.png"><img src="assets/readme/card-wiped.png" width="960" height="450" alt="Squad wiped card: the Caches Boss kept 46% HP, podium, weak spot associativity" loading="lazy"></button><figcaption>Squad wiped. The weak spot tells you what to fix.</figcaption></figure>
+  </div>
+  <div class="wrap car-nav"><button class="icon-btn car-prev" type="button" aria-label="Previous card">‹</button><button class="icon-btn car-next" type="button" aria-label="Next card">›</button></div>
+  <dialog class="lightbox" id="lightbox"><img alt=""><button class="btn btn-sm lb-close" type="button">Close</button></dialog>
+</section>
+
+<!-- 7. IM COOKED -->
+<section class="band cream" id="cooked" aria-labelledby="cooked-h">
+  <div class="wrap cooked-grid">
+    <div>
+      <div class="sec-head">
+        <p class="kicker">"im cooked"</p>
+        <h2 class="h2 reveal-h" id="cooked-h">Say you're cooked. The squad shows up.</h2>
+        <p class="lede muted">Type "im cooked", "gonna fail" or "send help" and Cramberry rallies the whole squad. It never guesses your topic, stays quiet during games, answers at most once every 5 minutes, and "we cooked that exam" doesn't count.</p>
+      </div>
+      <div class="cooked-boss" id="cooked-boss" aria-hidden="true"><div class="bubble">HA HA HA!</div><canvas data-sprite="boss-grape" data-box="22" data-scale="6"></canvas></div>
+    </div>
+    <div class="dc" aria-label="Discord channel mock">
+      <div class="dc-top"># study-squad</div>
+      <div class="dc-feed" id="dc-feed" aria-live="polite">
+        <div class="dcm"><span class="av" style="background:#ec4c58"></span><div><b style="color:#f3a6b8">Sunny</b> <time>Today at 9:41 PM</time><p>has anyone started the cache pset</p></div></div>
+      </div>
+      <form class="dc-in" id="dc-in" autocomplete="off">
+        <label class="sr-only" for="dc-text">Message #study-squad</label>
+        <input id="dc-text" type="text" placeholder="Message #study-squad as Sunny" maxlength="140">
+        <button class="btn btn-sm" type="submit">Send</button>
+      </form>
+      <div class="dc-try"><button class="btn btn-2 btn-sm" type="button" id="dc-try">Try it: "midterm thursday and im so cooked on caches"</button></div>
+      <p class="dc-hint muted" id="dc-hint" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. STUDY TOOLS + PROGRESS -->
+<section class="band cream-2" id="tools" aria-labelledby="tools-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">Study tools</p>
+      <h2 class="h2 reveal-h" id="tools-h">Everything else your squad types.</h2>
+      <p class="lede muted">Course-aware: once a Cubbie shares your courses, <code>/battle CSE230</code> means <em>your</em> CSE 230. See it all on the <a href="dashboard.html">demo squad dashboard</a>.</p>
+    </div>
+    <ul class="cmds" id="cmds"></ul>
+
+    <div class="prog-grid">
+      <div class="xp pxb">
+        <h3 class="h3">Levels</h3>
+        <p class="muted">Every game gives XP. Drag to see the ladder.</p>
+        <label class="sr-only" for="xp-range">XP</label>
+        <input type="range" id="xp-range" min="0" max="3200" step="10" value="420">
+        <div class="xp-now"><b id="xp-title">📘 Junior</b><span id="xp-num">420 XP</span></div>
+        <div class="xp-bar"><i id="xp-fill"></i></div>
+        <p class="muted small" id="xp-next">180 XP to 📙 Senior</p>
+        <ol class="ladder" id="ladder"></ol>
+      </div>
+      <div class="badges pxb">
+        <h3 class="h3">Badges</h3>
+        <p class="muted">Hover or tap a badge for its rule.</p>
+        <ul class="badge-shelf" id="badges"></ul>
+        <img src="assets/readme/card-profile.png" width="960" height="340" alt="Profile card for Dhanush: level 3 Junior, 120 of 300 XP to Senior, 9 games, 78% accuracy, 4 streak, 3 badges, 420 total XP" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. ADD -->
+<section class="band night add" id="add" aria-labelledby="add-h">
+  <div class="wrap add-grid">
+    <div class="add-art"><canvas data-sprite="cramberry" data-scale="8" aria-hidden="true"></canvas></div>
+    <div>
+      <p class="kicker">Add Cramberry</p>
+      <h2 class="h2 reveal-h" id="add-h">Bring the boss fight to your server.</h2>
+      <div class="btn-row" style="margin-top:24px">
+        <a class="btn btn-gold add-big" href="https://discord.com/oauth2/authorize?client_id=1563704377833689098&amp;scope=bot+applications.commands&amp;permissions=117760" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 10 10" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M4 1h2v3h3v2H6v3H4V6H1V4h3z"/></svg>Add to Discord</a>
+        <a class="qlink" href="setup.html">Run your own copy →</a>
+      </div>
+      <p class="muted" style="margin-top:16px;max-width:52ch">Cramberry runs on our team's server during the hackathon; if it's offline, run your own copy in 10 minutes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 10. DEMO IN 3 MINUTES -->
+<section class="band cream" id="demo" aria-labelledby="demo-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">For judges</p>
+      <h2 class="h2 reveal-h" id="demo-h">Demo in 3 minutes.</h2>
+    </div>
+    <div class="demo-grid">
+      <ol class="timeline">
+        <li class="reveal"><span class="tn">1</span><p>Sunny types <em>"midterm thursday, im so cooked on caches"</em> and Cramberry rallies the squad.</p></li>
+        <li class="reveal"><span class="tn">2</span><p>Malaika texts her <b>Cubbie</b> <em>"challenge my squad on caches from my CSE 230 notes"</em>, approves it, and <em>"📲 Malaika's Cubbie built this"</em> lands in Discord.</p></li>
+        <li class="reveal"><span class="tn">3</span><p>Judges press A–D on their own phones and watch the grape boss's HP drop and the podium form.</p></li>
+        <li class="reveal"><span class="tn">4</span><p>Malaika texts Cubbie <em>"how did the squad battle go?"</em> and gets a private recap with her missed question explained.</p></li>
+        <li class="reveal"><span class="tn">5</span><p>Show <code>/quiet</code> and the "asks before posting" step: privacy and consent built in.</p></li>
+      </ol>
+      <div class="video-slot" data-todo="demo-video-url">
+        <canvas data-sprite="boss-grape-laugh-a" data-scale="4" aria-hidden="true"></canvas>
+        <p class="kicker">Demo video</p>
+        <p class="muted">Placeholder: our demo video goes here.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11. TEAM -->
+<section class="band cream-2" id="team" aria-labelledby="team-h">
+  <div class="wrap">
+    <div class="sec-head center">
+      <p class="kicker">Team wildberry</p>
+      <h2 class="h2 reveal-h" id="team-h">Built in one weekend by team wildberry.</h2>
+    </div>
+    <div class="team-grid">
+      <article class="member pxb reveal"><canvas data-sprite="berry" data-scale="5" data-tint="grape" aria-hidden="true"></canvas><h3 class="h3">Malaika</h3><p class="role" data-todo="role">Role: to be added</p></article>
+      <article class="member pxb reveal"><canvas data-sprite="berry" data-scale="5" data-tint="tangerine" aria-hidden="true"></canvas><h3 class="h3">Sunny</h3><p class="role" data-todo="role">Role: to be added</p></article>
+      <article class="member pxb reveal"><canvas data-sprite="berry" data-scale="5" aria-hidden="true"></canvas><h3 class="h3">Dhanush</h3><p class="role" data-todo="role">Role: to be added</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- grow-from-button arena -->
+<div class="arena-overlay" id="arena-overlay" hidden role="dialog" aria-modal="true" aria-label="Demo boss battle"><div id="arena-root"></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="assets/logo/wordmark-badge.png" width="1583" height="380" alt="Cramberry" loading="lazy">
+        <p class="signoff">Nobody gets cooked alone.</p>
+        <p class="muted" style="margin-top:10px">Cubbie Hackathon · Track 3 (Group Chat Assistant) · DevHacks Fall 2026 · team wildberry</p>
+      </div>
+      <div>
+        <h4>Project</h4>
+        <ul>
+          <li><a href="https://github.com/MalaikaKamranKhan/Track3" target="_blank" rel="noopener">GitHub repo</a></li>
+          <li><a href="https://github.com/MalaikaKamranKhan/Track3#readme" target="_blank" rel="noopener">README</a></li>
+          <li><a href="https://github.com/MalaikaKamranKhan/Track3/blob/main/SETUP.md" target="_blank" rel="noopener">Setup guide</a></li>
+          <li><a href="https://github.com/MalaikaKamranKhan/Track3/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Try it</h4>
+        <ul>
+          <li><a href="play.html">Play a demo battle</a></li>
+          <li><a href="dashboard.html">Squad dashboard (demo)</a></li>
+          <li><a href="https://github.com/MalaikaKamranKhan/Track3/blob/main/cubbie-skill/squad-link/SKILL.md" target="_blank" rel="noopener">Cubbie skill (squad-link)</a></li>
+          <li><a href="https://hackathon.cubbie.ai/" target="_blank" rel="noopener">Cubbie Hackathon</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="credits">
+      <span>Cubbie and its mascot belong to Cubbie. Fonts: Outfit and Pixelify Sans (OFL).</span>
+      <span class="foot-peek"><canvas data-sprite="cramberry" data-scale="2" aria-hidden="true"></canvas><canvas data-sprite="boss-defeated" data-scale="2" aria-hidden="true"></canvas></span>
+    </div>
+  </div>
+</footer>
+<script src="js/sprite-data.js" defer></script>
+<script src="js/common.js" defer></script>
+<script src="js/battle.js" defer></script>
+<script src="js/home.js" defer></script>
+</body>
+</html>

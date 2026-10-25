@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Play · Cramberry demo battle</title>
+<meta name="description" content="Fight the Caches Boss in your browser with the real Cramberry battle rules.">
+<meta name="theme-color" content="#f6f0e4">
+<meta property="og:title" content="Play · Cramberry demo battle">
+<meta property="og:description" content="Fight the Caches Boss in your browser with the real Cramberry battle rules.">
+<meta property="og:image" content="assets/logo/social-preview.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="assets/logo/favicon-64.png">
+<link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/PixelifySans-Medium.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="assets/fonts/Outfit-Bold.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/site.css">
+
+</head>
+<body class="play-page">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap hdr">
+    <a class="logo" href="index.html" aria-label="Cramberry home">
+      <canvas data-sprite="berry" data-scale="3" aria-hidden="true"></canvas>
+      <span class="logo-word" aria-hidden="true">Cramberry</span>
+    </a>
+    <nav class="nav" aria-label="Main"><a href="index.html#how">How it works</a><a href="index.html#games">Games</a><a href="index.html#cubbie">Cubbie</a><a href="play.html" class="active" aria-current="page">Play</a><a href="setup.html">Setup</a><a href="index.html#team">Team</a></nav>
+    <div class="hdr-cta">
+      <a class="btn add-discord" href="https://discord.com/oauth2/authorize?client_id=1563704377833689098&amp;scope=bot+applications.commands&amp;permissions=117760" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 10 10" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M4 1h2v3h3v2H6v3H4V6H1V4h3z"/></svg>Add to Discord</a>
+      <a class="icon-btn gh" href="https://github.com/MalaikaKamranKhan/Track3" target="_blank" rel="noopener" aria-label="Cramberry on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>
+      <button class="icon-btn burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><svg viewBox="0 0 12 12" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M1 2h10v2H1zm0 3h10v2H1zm0 3h10v2H1z"/></svg></button>
+    </div>
+  </div>
+</header>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="sheet-top">
+    <a class="logo" href="index.html"><canvas data-sprite="berry" data-scale="2" aria-hidden="true"></canvas><span class="logo-word">Cramberry</span></a>
+    <button class="icon-btn sheet-close" type="button" aria-label="Close menu"><svg viewBox="0 0 12 12" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M2 1h2v1h1v1h2V2h1V1h2v2H9v1H8v1H7v2h1v1h1v1h1v2H8v-1H7v-1H5v1H4v1H2V9h1V8h1V7h1V5H4V4H3V3H2z"/></svg></button>
+  </div>
+  <nav aria-label="Mobile"><a href="index.html#how">How it works</a><a href="index.html#games">Games</a><a href="index.html#cubbie">Cubbie</a><a href="play.html">Play</a><a href="setup.html">Setup</a><a href="index.html#team">Team</a><a href="dashboard.html">Squad dashboard</a></nav>
+  <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1563704377833689098&amp;scope=bot+applications.commands&amp;permissions=117760" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 10 10" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M4 1h2v3h3v2H6v3H4V6H1V4h3z"/></svg>Add to Discord</a>
+</div>
+<main id="main">
+<section class="play-head night" aria-labelledby="play-h">
+  <div class="wrap">
+    <p class="kicker">Play</p>
+    <h1 class="h2" id="play-h">Fight the Caches Boss in your browser.</h1>
+    <p class="muted lede">The same rules as the bot, five real questions, two simulated squadmates. The real game runs in Discord with your whole squad.</p>
+  </div>
+</section>
+<div id="play-root" class="play-root"></div>
+<section class="band cream play-after" aria-labelledby="pa-h">
+  <div class="wrap pa-grid">
+    <div>
+      <p class="kicker">The rules you just played</p>
+      <h2 class="h3" id="pa-h">Straight from the bot's code.</h2>
+    </div>
+    <ul class="rules">
+      <li>Boss and squad start at 100 HP. Each question can deal 20 HP × the share of the squad that got it right.</li>
+      <li>A right answer on a 3-in-a-row streak is a ⚡ crit: +50 points, and the question hits 1.5× harder.</li>
+      <li>Points: 100 for a right answer, plus 50 / 30 / 10 for the first three right answers.</li>
+      <li>Any wrong answers let the boss hit back for 35 × the wrong share. Nobody answers: −10.</li>
+      <li>One 🎲 50/50 per battle. Before the last question, 💰 wager half or all in.</li>
+      <li>Boss at or under 30 HP after the last question is a win. Squad at 0 HP is a wipe.</li>
+    </ul>
+    <div class="btn-row"><a class="btn" href="https://discord.com/oauth2/authorize?client_id=1563704377833689098&amp;scope=bot+applications.commands&amp;permissions=117760" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 10 10" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M4 1h2v3h3v2H6v3H4V6H1V4h3z"/></svg>Add Cramberry to your server</a><a class="qlink" href="setup.html">Run your own copy →</a></div>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="assets/logo/wordmark-badge.png" width="1583" height="380" alt="Cramberry" loading="lazy">
+        <p class="signoff">Nobody gets cooked alone.</p>
+        <p class="muted" style="margin-top:10px">Cubbie Hackathon · Track 3 (Group Chat Assistant) · DevHacks Fall 2026 · team wildberry</p>
+      </div>
+      <div>
+        <h4>Project</h4>
+        <ul>
+          <li><a href="https://github.com/MalaikaKamranKhan/Track3" target="_blank" rel="noopener">GitHub repo</a></li>
+          <li><a href="https://github.com/MalaikaKamranKhan/Track3#readme" target="_blank" rel="noopener">README</a></li>
+          <li><a href="https://github.com/MalaikaKamranKhan/Track3/blob/main/SETUP.md" target="_blank" rel="noopener">Setup guide</a></li>
+          <li><a href="https://github.com/MalaikaKamranKhan/Track3/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Try it</h4>
+        <ul>
+          <li><a href="play.html">Play a demo battle</a></li>
+          <li><a href="dashboard.html">Squad dashboard (demo)</a></li>
+          <li><a href="https://github.com/MalaikaKamranKhan/Track3/blob/main/cubbie-skill/squad-link/SKILL.md" target="_blank" rel="noopener">Cubbie skill (squad-link)</a></li>
+          <li><a href="https://hackathon.cubbie.ai/" target="_blank" rel="noopener">Cubbie Hackathon</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="credits">
+      <span>Cubbie and its mascot belong to Cubbie. Fonts: Outfit and Pixelify Sans (OFL).</span>
+      <span class="foot-peek"><canvas data-sprite="cramberry" data-scale="2" aria-hidden="true"></canvas><canvas data-sprite="boss-defeated" data-scale="2" aria-hidden="true"></canvas></span>
+    </div>
+  </div>
+</footer>
+<script src="js/sprite-data.js" defer></script>
+<script src="js/common.js" defer></script>
+<script src="js/battle.js" defer></script>
+<script src="js/play.js" defer></script>
+</body>
+</html>
