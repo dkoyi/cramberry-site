@@ -5,6 +5,7 @@ The output is plain HTML; Vercel serves it as is (no build step)."""
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+SITE = "https://cramberry-site.vercel.app"
 PAGES = ROOT / "tools" / "pages"
 
 ADD = "https://discord.com/oauth2/authorize?client_id=1563704377833689098&amp;scope=bot+applications.commands&amp;permissions=117760"
@@ -53,7 +54,9 @@ NAV = [("Demo", "index.html#top"), ("How it works", "index.html#how"), ("Cubbie"
        ("Games", "index.html#games"), ("Team", "index.html#team")]
 
 
-def head(title, desc, extra_css="", intro=False):
+def head(title, desc, path="", extra_css="", intro=False):
+    url = f"{SITE}/{path}"
+    img = f"{SITE}/assets/logo/social-preview.png"
     return f"""<!doctype html>
 <html lang="en" class="no-js"{' data-intro="1"' if intro else ""}>
 <head>
@@ -65,11 +68,20 @@ def head(title, desc, extra_css="", intro=False):
 <meta name="theme-color" content="#f6f0e4" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#14161e" media="(prefers-color-scheme: dark)">
 {THEME_BOOT}
+<link rel="canonical" href="{url}">
+<meta property="og:site_name" content="Cramberry">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
-<meta property="og:image" content="assets/logo/social-preview.png">
+<meta property="og:url" content="{url}">
 <meta property="og:type" content="website">
+<meta property="og:image" content="{img}">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:image:alt" content="Cramberry, the blue pixel berry, and the line: turn your Discord study group chat into a cram battle">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{title}">
+<meta name="twitter:description" content="{desc}">
+<meta name="twitter:image" content="{img}">
 <link rel="icon" type="image/png" href="assets/logo/favicon-64.png">
 <link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png">
 <link rel="preload" href="assets/fonts/PixelifySans-Medium.ttf" as="font" type="font/ttf" crossorigin>
@@ -154,7 +166,8 @@ def page(file, title, desc, body, active="", css="", js=(), body_class=""):
                      "VIDEO": video()}.items():
         body = body.replace("{{" + key + "}}", val)
     extra_css = "".join(f'<link rel="stylesheet" href="css/{c}.css">' for c in css.split() if c)
-    html = f"""{head(title, desc, extra_css, intro='id="intro"' in body)}
+    path = "" if file == "index.html" else file.removesuffix(".html")
+    html = f"""{head(title, desc, path, extra_css, intro='id="intro"' in body)}
 <body class="{body_class}">
 {header(active)}
 <main id="main">
