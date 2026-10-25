@@ -13,7 +13,7 @@ REPO = "https://github.com/MalaikaKamranKhan/Track3"
 SKILL = REPO + "/blob/main/cubbie-skill/squad-link/SKILL.md"
 SETUP = REPO + "/blob/main/SETUP.md"
 # The demo video: paste the YouTube video id (the part after watch?v=) and run this script again.
-VIDEO_ID = "wwIt5ZvROrs"
+VIDEO_ID = "d9Y_zhhDnA4"
 
 
 def video():
