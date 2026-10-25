@@ -247,20 +247,40 @@
     history.replaceState(null, "", "#" + id);
   });
 
+  /* ---------------- theme: light / dark, saved per browser ---------------- */
+  function theme() {
+    const btn = document.querySelector(".theme-toggle");
+    const apply = (t) => {
+      doc.dataset.theme = t;
+      if (btn) {
+        btn.setAttribute("aria-pressed", t === "dark");
+        btn.setAttribute("aria-label", t === "dark" ? "Switch to light mode" : "Switch to dark mode");
+      }
+      document.querySelectorAll('meta[name="theme-color"]').forEach((m) => { m.content = t === "dark" ? "#14161e" : "#f6f0e4"; });
+    };
+    apply(doc.dataset.theme === "dark" ? "dark" : "light");
+    btn && btn.addEventListener("click", () => {
+      const t = doc.dataset.theme === "dark" ? "light" : "dark";
+      store.set("cb-theme", t);
+      apply(t);
+    });
+  }
+
   /* ---------------- intro: berry builds, word types, logo flies into the header (FLIP) ---------------- */
+  // The header logo stays hidden (html.intro-pending) until the flying logo lands on it, then they swap in one frame.
   function intro() {
     const el = document.getElementById("intro");
-    if (!el) return Promise.resolve();
+    const showHeaderLogo = () => doc.classList.remove("intro-pending");
+    if (!el) { showHeaderLogo(); return Promise.resolve(); }
     const seen = store.get("cb-intro", sessionStorage);
     store.set("cb-intro", "1", sessionStorage);
     const target = document.querySelector(".site-header .logo");
     const finish = () => {
+      showHeaderLogo();
       el.classList.add("done");
-      document.body.classList.remove("intro-on");
       setTimeout(() => el.remove(), 500);
     };
     if (reduced()) { finish(); return Promise.resolve(); }
-    document.body.classList.add("intro-on");
     const berry = el.querySelector("canvas.ib");
     const word = el.querySelector(".intro-word");
     const peek = el.querySelector(".intro-peek");
@@ -304,39 +324,16 @@
         el.style.background = "transparent";
         el.style.transition = `background-color .5s ease`;
         await wait(fast ? 420 : 680);
+        logo.style.visibility = "hidden"; // landed: the header logo takes over in this same frame
       }
       finish();
     })();
   }
 
-  /* ---------------- grow-from-button arena overlay ---------------- */
-  CB.growOpen = function (overlay, fromEl) {
-    const r = fromEl.getBoundingClientRect();
-    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-    const rad = Math.hypot(Math.max(cx, innerWidth - cx), Math.max(cy, innerHeight - cy));
-    overlay.hidden = false;
-    overlay._from = fromEl;
-    document.body.style.overflow = "hidden";
-    if (reduced()) { overlay.style.clipPath = "none"; overlay.style.opacity = 1; return; }
-    overlay.style.transition = "none";
-    overlay.style.clipPath = `circle(0px at ${cx}px ${cy}px)`;
-    overlay.getBoundingClientRect();
-    overlay.style.transition = "clip-path .7s cubic-bezier(.65,0,.35,1)";
-    overlay.style.clipPath = `circle(${rad}px at ${cx}px ${cy}px)`;
-  };
-  CB.growClose = function (overlay) {
-    const fromEl = overlay._from;
-    const done = () => { overlay.hidden = true; document.body.style.overflow = ""; fromEl && fromEl.focus({ preventScroll: true }); };
-    if (reduced() || !fromEl) return done();
-    const r = fromEl.getBoundingClientRect();
-    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-    overlay.style.clipPath = `circle(0px at ${cx}px ${cy}px)`;
-    setTimeout(done, 650);
-  };
-
   /* ---------------- boot ---------------- */
   CB.ready = new Promise((res) => {
     const go = () => {
+      theme();
       sprites.mount();
       fillCopyIcons();
       reveals();

@@ -20,20 +20,39 @@ GH_SVG = ('<svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor"
 PLUS_SVG = '<svg class="ico" viewBox="0 0 10 10" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M4 1h2v3h3v2H6v3H4V6H1V4h3z"/></svg>'
 BURGER_SVG = '<svg viewBox="0 0 12 12" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M1 2h10v2H1zm0 3h10v2H1zm0 3h10v2H1z"/></svg>'
 CLOSE_SVG = '<svg viewBox="0 0 12 12" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M2 1h2v1h1v1h2V2h1V1h2v2H9v1H8v1H7v2h1v1h1v1h1v2H8v-1H7v-1H5v1H4v1H2V9h1V8h1V7h1V5H4V4H3V3H2z"/></svg>'
+SUN_SVG = ('<svg class="i-sun" viewBox="0 0 12 12" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" '
+           'd="M5 0h2v2H5zM5 10h2v2H5zM0 5h2v2H0zM10 5h2v2h-2zM1 1h2v2H1zM9 1h2v2H9zM1 9h2v2H1zM9 9h2v2H9zM4 3h4v1h1v4H8v1H4V8H3V4h1z"/></svg>')
+MOON_SVG = ('<svg class="i-moon" viewBox="0 0 12 12" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" '
+            'd="M4 1h4v1H6v1H5v2H4v2h1v2h1v1h2v1H4v-1H2V9H1V3h1V2h2z"/></svg>')
+
+# Runs before first paint: applies the saved (or system) theme, and on the home page hides the header logo until the
+# intro animation lands on it, so the logo is never on screen twice.
+THEME_BOOT = """<script>
+(function () {
+  var d = document.documentElement, t = null;
+  try { t = localStorage.getItem("cb-theme"); } catch (e) {}
+  if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  d.dataset.theme = t;
+  if (d.dataset.intro === "1" && !matchMedia("(prefers-reduced-motion: reduce)").matches) d.classList.add("intro-pending");
+})();
+</script>"""
 
 NAV = [("How it works", "index.html#how"), ("Games", "index.html#games"), ("Cubbie", "index.html#cubbie"),
        ("Play", "play.html"), ("Setup", "setup.html"), ("Team", "index.html#team")]
 
 
-def head(title, desc, extra_css=""):
+def head(title, desc, extra_css="", intro=False):
     return f"""<!doctype html>
-<html lang="en" class="no-js">
+<html lang="en" class="no-js"{' data-intro="1"' if intro else ""}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<meta name="theme-color" content="#f6f0e4">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f6f0e4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14161e" media="(prefers-color-scheme: dark)">
+{THEME_BOOT}
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:image" content="assets/logo/social-preview.png">
@@ -51,7 +70,7 @@ def head(title, desc, extra_css=""):
 def header(active=""):
     links = "".join(
         f'<a href="{h}"{" class=\"active\" aria-current=\"page\"" if active == n else ""}>{n}</a>' for n, h in NAV)
-    sheet_links = "".join(f'<a href="{h}">{n}</a>' for n, h in NAV) + '<a href="dashboard.html">Squad dashboard</a>'
+    sheet_links = "".join(f'<a href="{h}">{n}</a>' for n, h in NAV) + '<a href="dashboard.html">Squad dashboard</a>' + f'<a href="{REPO}" target="_blank" rel="noopener">GitHub</a>'
     return f"""<a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap hdr">
@@ -63,6 +82,7 @@ def header(active=""):
     <div class="hdr-cta">
       <a class="btn add-discord" href="{ADD}" target="_blank" rel="noopener">{PLUS_SVG}Add to Discord</a>
       <a class="icon-btn gh" href="{REPO}" target="_blank" rel="noopener" aria-label="Cramberry on GitHub">{GH_SVG}</a>
+      <button class="icon-btn theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">{SUN_SVG}{MOON_SVG}</button>
       <button class="icon-btn burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sheet">{BURGER_SVG}</button>
     </div>
   </div>
@@ -120,7 +140,7 @@ def scripts(*names):
 def page(file, title, desc, body, active="", css="", js=(), body_class=""):
     body = body.replace("{{ADD}}", ADD).replace("{{REPO}}", REPO).replace("{{SKILL}}", SKILL).replace("{{PLUS}}", PLUS_SVG).replace("{{GH}}", GH_SVG)
     extra_css = "".join(f'<link rel="stylesheet" href="css/{c}.css">' for c in css.split() if c)
-    html = f"""{head(title, desc, extra_css)}
+    html = f"""{head(title, desc, extra_css, intro='id="intro"' in body)}
 <body class="{body_class}">
 {header(active)}
 <main id="main">
@@ -138,13 +158,13 @@ def page(file, title, desc, body, active="", css="", js=(), body_class=""):
 if __name__ == "__main__":
     page("index.html", "Cramberry · your study squad's boss battle, right in Discord",
          "A pixel berry knight that turns a study group's Discord into a quiz game, and talks to each student's own Cubbie.",
-         (PAGES / "home.html").read_text(), css="home", js=("battle", "home"), body_class="home")
+         (PAGES / "home.html").read_text(encoding="utf-8"), css="home", js=("battle", "home"), body_class="home")
     page("play.html", "Play · Cramberry demo battle",
          "Fight the Caches Boss in your browser with the real Cramberry battle rules.",
-         (PAGES / "play.html").read_text(), active="Play", css="", js=("battle", "play"), body_class="play-page")
+         (PAGES / "play.html").read_text(encoding="utf-8"), active="Play", css="", js=("battle", "play"), body_class="play-page")
     page("dashboard.html", "Squad dashboard · Cramberry (demo)",
          "What a study squad looks like after a week of Cramberry: leaderboard, streaks, battles, deadlines and weak spots.",
-         (PAGES / "dashboard.html").read_text(), css="sub", js=("dashboard",), body_class="dash-page")
+         (PAGES / "dashboard.html").read_text(encoding="utf-8"), css="sub", js=("dashboard",), body_class="dash-page")
     page("setup.html", "Setup · run your own Cramberry",
          "Install Cramberry in your own Discord server and connect your Cubbie, step by step.",
-         (PAGES / "setup.html").read_text(), active="Setup", css="sub", js=("setup",), body_class="setup-page")
+         (PAGES / "setup.html").read_text(encoding="utf-8"), active="Setup", css="sub", js=("setup",), body_class="setup-page")

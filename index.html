@@ -1,11 +1,22 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="en" class="no-js" data-intro="1">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Cramberry · your study squad's boss battle, right in Discord</title>
 <meta name="description" content="A pixel berry knight that turns a study group's Discord into a quiz game, and talks to each student's own Cubbie.">
-<meta name="theme-color" content="#f6f0e4">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f6f0e4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14161e" media="(prefers-color-scheme: dark)">
+<script>
+(function () {
+  var d = document.documentElement, t = null;
+  try { t = localStorage.getItem("cb-theme"); } catch (e) {}
+  if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  d.dataset.theme = t;
+  if (d.dataset.intro === "1" && !matchMedia("(prefers-reduced-motion: reduce)").matches) d.classList.add("intro-pending");
+})();
+</script>
 <meta property="og:title" content="Cramberry · your study squad's boss battle, right in Discord">
 <meta property="og:description" content="A pixel berry knight that turns a study group's Discord into a quiz game, and talks to each student's own Cubbie.">
 <meta property="og:image" content="assets/logo/social-preview.png">
@@ -30,6 +41,7 @@
     <div class="hdr-cta">
       <a class="btn add-discord" href="https://discord.com/oauth2/authorize?client_id=1563704377833689098&amp;scope=bot+applications.commands&amp;permissions=117760" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 10 10" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M4 1h2v3h3v2H6v3H4V6H1V4h3z"/></svg>Add to Discord</a>
       <a class="icon-btn gh" href="https://github.com/MalaikaKamranKhan/Track3" target="_blank" rel="noopener" aria-label="Cramberry on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>
+      <button class="icon-btn theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><svg class="i-sun" viewBox="0 0 12 12" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M5 0h2v2H5zM5 10h2v2H5zM0 5h2v2H0zM10 5h2v2h-2zM1 1h2v2H1zM9 1h2v2H9zM1 9h2v2H1zM9 9h2v2H9zM4 3h4v1h1v4H8v1H4V8H3V4h1z"/></svg><svg class="i-moon" viewBox="0 0 12 12" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M4 1h4v1H6v1H5v2H4v2h1v2h1v1h2v1H4v-1H2V9H1V3h1V2h2z"/></svg></button>
       <button class="icon-btn burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><svg viewBox="0 0 12 12" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M1 2h10v2H1zm0 3h10v2H1zm0 3h10v2H1z"/></svg></button>
     </div>
   </div>
@@ -39,7 +51,7 @@
     <a class="logo" href="index.html"><canvas data-sprite="berry" data-scale="2" aria-hidden="true"></canvas><span class="logo-word">Cramberry</span></a>
     <button class="icon-btn sheet-close" type="button" aria-label="Close menu"><svg viewBox="0 0 12 12" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M2 1h2v1h1v1h2V2h1V1h2v2H9v1H8v1H7v2h1v1h1v1h1v2H8v-1H7v-1H5v1H4v1H2V9h1V8h1V7h1V5H4V4H3V3H2z"/></svg></button>
   </div>
-  <nav aria-label="Mobile"><a href="index.html#how">How it works</a><a href="index.html#games">Games</a><a href="index.html#cubbie">Cubbie</a><a href="play.html">Play</a><a href="setup.html">Setup</a><a href="index.html#team">Team</a><a href="dashboard.html">Squad dashboard</a></nav>
+  <nav aria-label="Mobile"><a href="index.html#how">How it works</a><a href="index.html#games">Games</a><a href="index.html#cubbie">Cubbie</a><a href="play.html">Play</a><a href="setup.html">Setup</a><a href="index.html#team">Team</a><a href="dashboard.html">Squad dashboard</a><a href="https://github.com/MalaikaKamranKhan/Track3" target="_blank" rel="noopener">GitHub</a></nav>
   <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1563704377833689098&amp;scope=bot+applications.commands&amp;permissions=117760" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 10 10" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M4 1h2v3h3v2H6v3H4V6H1V4h3z"/></svg>Add to Discord</a>
 </div>
 <main id="main">
@@ -50,46 +62,54 @@
   <span class="intro-skip">click to skip</span>
 </div>
 
-<!-- 1. HERO -->
-<section class="band cream hero" id="top" aria-labelledby="hero-h">
-  <div class="wrap hero-grid">
-    <div class="hero-copy">
-      <p class="kicker">Cubbie Hackathon · Track 3</p>
-      <h1 class="h1" id="hero-h">Your study squad's <span class="ul">boss battle<svg viewBox="0 0 300 16" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2 10 H22 V5 H42 V10 H62 V5 H82 V10 H102 V5 H122 V10 H142 V5 H162 V10 H182 V5 H202 V10 H222 V5 H242 V10 H262 V5 H282 V10 H298"/></svg></span>, right in Discord.</h1>
-      <p class="lede">A pixel berry knight that turns a study group's Discord into a quiz game, and talks to each student's own Cubbie.</p>
-      <div class="btn-row">
-        <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1563704377833689098&amp;scope=bot+applications.commands&amp;permissions=117760" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 10 10" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M4 1h2v3h3v2H6v3H4V6H1V4h3z"/></svg>Add to Discord</a>
-        <a class="btn btn-2 try-battle" href="play.html" data-arena>⚔️ Try a battle</a>
-        <a class="qlink" href="https://github.com/MalaikaKamranKhan/Track3" target="_blank" rel="noopener">View on GitHub →</a>
-      </div>
-      <ul class="trust">
-        <li><span class="ti ti-open" aria-hidden="true"></span>Free and open source (MIT)</li>
-        <li><span class="ti ti-cubbie" aria-hidden="true"></span>Works with your own Cubbie</li>
-        <li><span class="ti ti-lock" aria-hidden="true"></span>Your misses stay private</li>
-      </ul>
+<!-- 1. HERO: a centred arena. Headline on top, a live battle stage below, a command ticker at the bottom. -->
+<section class="hero" id="top" aria-labelledby="hero-h">
+  <div class="hero-sky" aria-hidden="true">
+    <canvas class="drift d1" data-sprite="boss-lime" data-box="22" data-scale="3"></canvas>
+    <canvas class="drift d2" data-sprite="boss-lemon" data-box="22" data-scale="2"></canvas>
+    <canvas class="drift d3" data-sprite="boss-tangerine" data-box="22" data-scale="3"></canvas>
+    <canvas class="drift d4" data-sprite="boss-kiwi" data-box="22" data-scale="2"></canvas>
+    <canvas class="drift d5" data-sprite="boss-lie" data-box="22" data-scale="3"></canvas>
+  </div>
+  <div class="wrap hero-inner">
+    <p class="kicker">Cubbie Hackathon · Track 3 · team wildberry</p>
+    <h1 class="h1 hero-title" id="hero-h">Your study squad's <span class="ul">boss battle<svg viewBox="0 0 300 16" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2 10 H22 V5 H42 V10 H62 V5 H82 V10 H102 V5 H122 V10 H142 V5 H162 V10 H182 V5 H202 V10 H222 V5 H242 V10 H262 V5 H282 V10 H298"/></svg></span>, right in Discord.</h1>
+    <p class="lede hero-lede">A pixel berry knight that turns a study group's Discord into a quiz game, and talks to each student's own Cubbie.</p>
+    <div class="btn-row hero-ctas">
+      <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1563704377833689098&amp;scope=bot+applications.commands&amp;permissions=117760" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 10 10" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M4 1h2v3h3v2H6v3H4V6H1V4h3z"/></svg>Add to Discord</a>
+      <a class="btn btn-2" href="https://github.com/MalaikaKamranKhan/Track3" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>View on GitHub</a>
     </div>
-    <div class="hero-art" aria-label="A live boss battle: Cramberry versus the grape Caches Boss">
-      <div class="hk-back hk-1" aria-hidden="true"></div>
-      <div class="hk-back hk-2" aria-hidden="true"></div>
-      <div class="mini-card night">
-        <div class="mc-top"><span class="mc-k">BOSS BATTLE</span><span class="mc-tag" id="mc-tag">Q1 of 5</span></div>
-        <h2 class="mc-title">The Caches Boss</h2>
-        <div class="mc-stage">
-          <canvas class="mc-hero" data-sprite="cramberry" data-scale="4" aria-hidden="true"></canvas>
+
+    <div class="stage" role="img" aria-label="A live boss battle: Cramberry versus the grape Caches Boss">
+      <div class="stage-bar"><span class="stage-k">Boss battle · caches</span><span class="stage-tag" id="mc-tag">Q1 of 5</span></div>
+      <div class="stage-field">
+        <div class="fighter">
+          <canvas class="mc-hero" data-sprite="cramberry" data-scale="5" aria-hidden="true"></canvas>
+          <div class="plate"><div class="hplabel"><span>SQUAD HP</span><b id="mc-sqn">100%</b></div><div class="hpbar squad"><i id="mc-sq"></i></div></div>
+        </div>
+        <span class="stage-vs" aria-hidden="true">VS</span>
+        <div class="fighter">
           <div class="mc-boss">
             <div class="bubble" aria-hidden="true">HA HA HA!</div>
-            <canvas id="mc-boss" data-sprite="boss-grape" data-box="22" data-scale="5" aria-hidden="true"></canvas>
+            <canvas id="mc-boss" data-sprite="boss-grape" data-box="22" data-scale="6" aria-hidden="true"></canvas>
             <div class="dmg-host" aria-hidden="true"></div>
           </div>
+          <div class="plate"><div class="hplabel"><span>BOSS HP</span><b id="mc-hpn">100%</b></div><div class="hpbar"><i id="mc-hp"></i></div></div>
         </div>
-        <div class="hplabel"><span>BOSS HP</span><b id="mc-hpn">100%</b></div>
-        <div class="hpbar"><i id="mc-hp"></i></div>
-        <div class="hplabel" style="margin-top:10px"><span>SQUAD HP</span><b id="mc-sqn">100%</b></div>
-        <div class="hpbar squad"><i id="mc-sq"></i></div>
+      </div>
+      <div class="stage-q">
+        <p class="stage-prompt" id="mc-q">A 2-way set-associative cache has 64 sets. How many index bits does an address use?</p>
         <div class="mc-abcd" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span></div>
       </div>
     </div>
+
+    <ul class="trust">
+      <li><span class="ti ti-open" aria-hidden="true"></span>Free and open source (MIT)</li>
+      <li><span class="ti ti-cubbie" aria-hidden="true"></span>Works with your own Cubbie</li>
+      <li><span class="ti ti-lock" aria-hidden="true"></span>Your misses stay private</li>
+    </ul>
   </div>
+  <div class="ticker" aria-hidden="true"><div class="ticker-track"><span>/battle</span><span>/lie</span><span>/explain</span><span>/daily</span><span>/plan</span><span>/focus</span><span>/radar</span><span>/notes</span><span>/profile</span><span>/leaderboard</span><span>/link</span><span>"im cooked"</span><span>/battle</span><span>/lie</span><span>/explain</span><span>/daily</span><span>/plan</span><span>/focus</span><span>/radar</span><span>/notes</span><span>/profile</span><span>/leaderboard</span><span>/link</span><span>"im cooked"</span></div></div>
 </section>
 
 <!-- 2. WHY -->
@@ -402,9 +422,6 @@
     </div>
   </div>
 </section>
-
-<!-- grow-from-button arena -->
-<div class="arena-overlay" id="arena-overlay" hidden role="dialog" aria-modal="true" aria-label="Demo boss battle"><div id="arena-root"></div></div>
 
 </main>
 <footer class="site-footer">

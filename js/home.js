@@ -9,7 +9,6 @@
 
   CB.ready.then(() => {
     heroBattle();
-    arenaOverlay();
     loop();
     phone();
     games();
@@ -18,19 +17,28 @@
     tools();
   });
 
-  /* ---------- 1. hero: a live mini battle that loops ---------- */
+  /* ---------- 1. hero: a live battle on the arena stage, looping through the real demo questions ---------- */
   function heroBattle() {
     const boss = $("#mc-boss"), hero = $(".mc-hero"), bubble = $(".mc-boss .bubble"), host = $(".mc-boss .dmg-host");
     if (!boss) return;
     const keys = $$(".mc-abcd span");
+    const prompt = $("#mc-q");
+    const QS = (CB.Battle && CB.Battle.QUESTIONS) || [];
     let hp = 100, sq = 100, q = 1;
     const set = () => {
       $("#mc-hp").style.setProperty("--v", hp + "%"); $("#mc-hpn").textContent = hp + "%";
       $("#mc-sq").style.setProperty("--v", sq + "%"); $("#mc-sqn").textContent = sq + "%";
       $("#mc-tag").textContent = hp <= 0 ? "Defeated" : `Q${q} of 5`;
     };
-    // a scripted fight: right, wrong, crit, right, crit
-    const script = [{ ok: true, d: 20, k: 1 }, { ok: false, d: 7, hit: 12, k: 3 }, { ok: true, d: 30, k: 1, crit: true }, { ok: true, d: 20, k: 0 }, { ok: true, d: 23, k: 1, crit: true }];
+    const showQ = (n) => {
+      const Q = QS[n - 1];
+      if (!prompt || !Q) return;
+      prompt.classList.add("swap");
+      setTimeout(() => { prompt.textContent = Q.p; prompt.classList.remove("swap"); }, 250);
+    };
+    // a scripted fight: right, wrong, crit, right, crit (the pressed key is the real right or a real wrong answer)
+    const script = [{ ok: true, d: 20 }, { ok: false, d: 7, hit: 12 }, { ok: true, d: 30, crit: true }, { ok: true, d: 20 }, { ok: true, d: 23, crit: true }];
+    const keyFor = (n, ok) => { const a = QS[n - 1] ? QS[n - 1].a : 1; return ok ? a : (a + 1) % 4; };
     let i = 0, visible = true;
     if ("IntersectionObserver" in window) new IntersectionObserver((e) => { visible = e[0].isIntersecting; }).observe(boss);
     set();
@@ -41,9 +49,11 @@
       const s = script[i];
       if (!s) { i = 0; return; }
       busy = true;
-      keys[s.k].classList.add("press");
-      await sleep(260);
-      keys[s.k].classList.remove("press");
+      const key = keys[keyFor(q, s.ok)];
+      key.classList.add("press");
+      key.classList.toggle("miss", !s.ok);
+      await sleep(420);
+      key.classList.remove("press", "miss");
       hp = Math.max(0, hp - s.d);
       const n = document.createElement("span");
       n.className = "dmg" + (s.crit ? " crit" : "");
@@ -56,32 +66,19 @@
       q = Math.min(5, q + 1);
       set();
       i += 1;
+      if (hp > 0) showQ(q);
       if (hp <= 0) {
         hero.classList.add("raise");
         await sleep(3200);
         hero.classList.remove("raise");
         hp = 100; sq = 100; q = 1; i = 0;
         CB.sprites.draw(boss, "boss-grape");
+        showQ(1);
         set();
       }
       busy = false;
     }
-    setInterval(round, 2100);
-  }
-
-  /* ---------- grow-from-button arena ---------- */
-  function arenaOverlay() {
-    const ov = $("#arena-overlay"), root = $("#arena-root");
-    if (!ov) return;
-    let battle = null;
-    const close = () => { battle && battle.stop(); CB.growClose(ov); };
-    $$("[data-arena]").forEach((b) => b.addEventListener("click", (e) => {
-      e.preventDefault();
-      CB.growOpen(ov, b);
-      if (!battle) battle = CB.Battle.mount(root, { closable: true, onClose: close });
-      else battle.restart();
-    }));
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !ov.hidden) close(); });
+    setInterval(round, 2400);
   }
 
   /* ---------- 3. the Cubbie loop ---------- */

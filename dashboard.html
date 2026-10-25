@@ -5,7 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Squad dashboard · Cramberry (demo)</title>
 <meta name="description" content="What a study squad looks like after a week of Cramberry: leaderboard, streaks, battles, deadlines and weak spots.">
-<meta name="theme-color" content="#f6f0e4">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f6f0e4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14161e" media="(prefers-color-scheme: dark)">
+<script>
+(function () {
+  var d = document.documentElement, t = null;
+  try { t = localStorage.getItem("cb-theme"); } catch (e) {}
+  if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  d.dataset.theme = t;
+  if (d.dataset.intro === "1" && !matchMedia("(prefers-reduced-motion: reduce)").matches) d.classList.add("intro-pending");
+})();
+</script>
 <meta property="og:title" content="Squad dashboard · Cramberry (demo)">
 <meta property="og:description" content="What a study squad looks like after a week of Cramberry: leaderboard, streaks, battles, deadlines and weak spots.">
 <meta property="og:image" content="assets/logo/social-preview.png">
@@ -30,6 +41,7 @@
     <div class="hdr-cta">
       <a class="btn add-discord" href="https://discord.com/oauth2/authorize?client_id=1563704377833689098&amp;scope=bot+applications.commands&amp;permissions=117760" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 10 10" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M4 1h2v3h3v2H6v3H4V6H1V4h3z"/></svg>Add to Discord</a>
       <a class="icon-btn gh" href="https://github.com/MalaikaKamranKhan/Track3" target="_blank" rel="noopener" aria-label="Cramberry on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>
+      <button class="icon-btn theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><svg class="i-sun" viewBox="0 0 12 12" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M5 0h2v2H5zM5 10h2v2H5zM0 5h2v2H0zM10 5h2v2h-2zM1 1h2v2H1zM9 1h2v2H9zM1 9h2v2H1zM9 9h2v2H9zM4 3h4v1h1v4H8v1H4V8H3V4h1z"/></svg><svg class="i-moon" viewBox="0 0 12 12" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M4 1h4v1H6v1H5v2H4v2h1v2h1v1h2v1H4v-1H2V9H1V3h1V2h2z"/></svg></button>
       <button class="icon-btn burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><svg viewBox="0 0 12 12" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M1 2h10v2H1zm0 3h10v2H1zm0 3h10v2H1z"/></svg></button>
     </div>
   </div>
@@ -39,7 +51,7 @@
     <a class="logo" href="index.html"><canvas data-sprite="berry" data-scale="2" aria-hidden="true"></canvas><span class="logo-word">Cramberry</span></a>
     <button class="icon-btn sheet-close" type="button" aria-label="Close menu"><svg viewBox="0 0 12 12" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M2 1h2v1h1v1h2V2h1V1h2v2H9v1H8v1H7v2h1v1h1v1h1v2H8v-1H7v-1H5v1H4v1H2V9h1V8h1V7h1V5H4V4H3V3H2z"/></svg></button>
   </div>
-  <nav aria-label="Mobile"><a href="index.html#how">How it works</a><a href="index.html#games">Games</a><a href="index.html#cubbie">Cubbie</a><a href="play.html">Play</a><a href="setup.html">Setup</a><a href="index.html#team">Team</a><a href="dashboard.html">Squad dashboard</a></nav>
+  <nav aria-label="Mobile"><a href="index.html#how">How it works</a><a href="index.html#games">Games</a><a href="index.html#cubbie">Cubbie</a><a href="play.html">Play</a><a href="setup.html">Setup</a><a href="index.html#team">Team</a><a href="dashboard.html">Squad dashboard</a><a href="https://github.com/MalaikaKamranKhan/Track3" target="_blank" rel="noopener">GitHub</a></nav>
   <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1563704377833689098&amp;scope=bot+applications.commands&amp;permissions=117760" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 10 10" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M4 1h2v3h3v2H6v3H4V6H1V4h3z"/></svg>Add to Discord</a>
 </div>
 <main id="main">

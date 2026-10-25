@@ -45,7 +45,6 @@
     root.innerHTML = `
       <div class="ar-top">
         <span class="demo-label">Demo · the real game runs in Discord</span>
-        ${opts.closable ? '<button class="btn btn-2 btn-sm ar-close" type="button">Close <span aria-hidden="true">✕</span></button>' : ""}
       </div>
       <div class="ar-stage">
         <div class="ar-side ar-hero">
@@ -66,7 +65,6 @@
     S.mount(root);
     const $ = (s) => root.querySelector(s);
     const panel = $(".ar-panel"), bossC = $(".ar-bossc"), cram = $(".ar-cram"), bubble = $(".bubble");
-    if (opts.closable) $(".ar-close").addEventListener("click", () => { clearAll(); opts.onClose && opts.onClose(); });
 
     function setHP() {
       $(".hp-bar").style.setProperty("--v", st.hp + "%");
