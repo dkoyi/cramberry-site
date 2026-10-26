@@ -38,13 +38,13 @@ SUN_SVG = ('<svg class="i-sun" viewBox="0 0 12 12" aria-hidden="true" shape-rend
 MOON_SVG = ('<svg class="i-moon" viewBox="0 0 12 12" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" '
             'd="M4 1h4v1H6v1H5v2H4v2h1v2h1v1h2v1H4v-1H2V9H1V3h1V2h2z"/></svg>')
 
-# Runs before first paint: applies the saved (or system) theme, and on the home page hides the header logo until the
+# Runs before first paint: applies the saved theme (dark by default), and on the home page hides the header logo until the
 # intro animation lands on it, so the logo is never on screen twice.
 THEME_BOOT = """<script>
 (function () {
   var d = document.documentElement, t = null;
   try { t = localStorage.getItem("cb-theme"); } catch (e) {}
-  if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  if (t !== "light" && t !== "dark") t = "dark";
   d.dataset.theme = t;
   if (d.dataset.intro === "1" && !matchMedia("(prefers-reduced-motion: reduce)").matches) d.classList.add("intro-pending");
 })();

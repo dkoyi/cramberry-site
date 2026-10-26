@@ -46,14 +46,15 @@
   --tint: rgba(43,33,27,.08);
   --track: #e5dccb;
   /* game bands (how it works, the cards) and the battle stage: a cool light version here, night-dark in dark mode */
-  --game-bg: #e9e9f3;
-  --game-panel: #fffdf8;
-  --game-edge: #cdd0e2;
-  --game-chip: #dcdeec;
-  --game-well: #dcdeec;
-  --game-drop: #b9bdd4;
-  --game-hi: var(--blue-deep);
-  --game-gold: #d4960a;
+  --game-bg: #e6edfc;
+  --game-panel: #ffffff;
+  --game-edge: #c6d4f3;
+  --game-chip: #dbe5fb;
+  --game-well: #ffffff;
+  --game-drop: #aebee6;
+  --game-hi: var(--blue);
+  --game-gold: var(--wildberry);
+  --game-on-gold: #fff;
   --game-strong: var(--ink);
   --game-muted: var(--ink-soft);
   --hp-track: #d5d8e6;
@@ -80,6 +81,7 @@
   --game-drop: #000;
   --game-hi: var(--gold);
   --game-gold: var(--gold);
+  --game-on-gold: #2b211b;
   --game-strong: #fff;
   --game-muted: var(--night-muted);
   --hp-track: #23263a;

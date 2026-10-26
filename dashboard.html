@@ -12,7 +12,7 @@
 (function () {
   var d = document.documentElement, t = null;
   try { t = localStorage.getItem("cb-theme"); } catch (e) {}
-  if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  if (t !== "light" && t !== "dark") t = "dark";
   d.dataset.theme = t;
   if (d.dataset.intro === "1" && !matchMedia("(prefers-reduced-motion: reduce)").matches) d.classList.add("intro-pending");
 })();

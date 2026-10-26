@@ -104,6 +104,12 @@
 .step-b { width: 42px; height: 42px; border-radius: 50%; border: 0; cursor: pointer; font-family: var(--f-body); font-weight: 700; font-size: 18px; background: var(--game-chip); color: var(--ink); box-shadow: 0 3px 0 var(--game-drop); transition: transform .1s, background .2s; }
 .step-b[aria-selected="true"] { background: var(--gold); color: #2b211b; }
 .step-b:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--game-drop); }
+/* light mode: white step buttons with blue numbers, the current step in solid blue */
+[data-theme="light"] .step-b { background: #fff; color: var(--blue); box-shadow: 0 0 0 2px var(--game-edge), 0 3px 0 var(--game-drop); }
+[data-theme="light"] .step-b[aria-selected="true"] { background: var(--blue); color: #fff; box-shadow: 0 3px 0 var(--blue-deep); }
+[data-theme="light"] .lp.on { box-shadow: 0 0 0 3px var(--wildberry), 0 18px 36px -14px rgba(184,50,110,.35); }
+[data-theme="light"] .loop-cap b { color: var(--wildberry); }
+[data-theme="light"] .scope input:checked + span { background: var(--blue); color: #fff; }
 .loop-play { margin-left: 6px; }
 .scope { display: inline-flex; background: var(--game-well); border-radius: 999px; padding: 4px; box-shadow: inset 0 0 0 2px var(--game-edge); }
 .scope label { position: relative; }
@@ -155,7 +161,7 @@
 @keyframes pkt-f { 0% { left: 0; opacity: 1; } 100% { left: calc(100% - 12px); opacity: 1; } }
 @keyframes pkt-b { 0% { left: calc(100% - 12px); opacity: 1; } 100% { left: 0; opacity: 1; } }
 .lane.go::before { opacity: 1; }
-.lbadge { position: absolute; left: 50%; transform: translateX(-50%); width: 30px; height: 30px; border-radius: 50%; background: var(--game-gold); color: #2b211b; display: grid; place-items: center; font-weight: 700; font-size: 15px; }
+.lbadge { position: absolute; left: 50%; transform: translateX(-50%); width: 30px; height: 30px; border-radius: 50%; background: var(--game-gold); color: var(--game-on-gold); display: grid; place-items: center; font-weight: 700; font-size: 15px; }
 .lbadge.f { top: calc(50% - 56px); }
 .lbadge.b { bottom: calc(50% - 56px); background: var(--blue-mid); color: #fff; }
 .loop-cap { margin-top: 24px; min-height: 3.2em; font-size: 18px; font-weight: 700; color: var(--game-strong); display: flex; gap: 14px; align-items: baseline; }
