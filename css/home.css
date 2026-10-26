@@ -46,7 +46,7 @@
 
 /* command ticker along the bottom edge of the hero */
 .ticker { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; background: var(--paper); border-block: 3px solid var(--ink); overflow: hidden; }
-.ticker-track { display: flex; width: max-content; animation: tick 32s linear infinite; }
+.ticker-track { display: flex; width: max-content; animation: tick 96s linear infinite; }
 .ticker-track span { font-family: var(--f-pixel); font-size: 15px; letter-spacing: .06em; color: var(--blue-deep); padding: 12px 22px; white-space: nowrap; }
 .ticker-track span:nth-child(3n+2) { color: var(--wildberry); } .ticker-track span:nth-child(3n) { color: var(--ink); }
 [data-theme="dark"] .ticker { background: var(--night); border-color: #000; }
@@ -262,13 +262,15 @@
 
 /* ---------- what your group sees: endless auto-scrolling strip ---------- */
 .cards-band { padding-block: clamp(44px, 5.5vw, 76px); }
-.marquee { overflow: hidden; padding: 8px 0 18px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.marquee { overflow: hidden; padding: 8px 0 18px; max-width: 2800px; margin-inline: auto; /* wider than this, the doubled strip would run out */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 2%, #000 98%, transparent); mask-image: linear-gradient(90deg, transparent, #000 2%, #000 98%, transparent); }
 .marquee-track { display: flex; gap: 22px; width: max-content; animation: marquee 60s linear infinite; }
 .marquee:hover .marquee-track, .marquee:focus-within .marquee-track { animation-play-state: paused; }
 @keyframes marquee { to { transform: translateX(calc(-50% - 11px)); } }  /* the track holds the cards twice: -50% loops seamlessly */
 .marquee figure { margin: 0; flex: 0 0 min(500px, 78vw); display: grid; gap: 12px; }
 .marquee button { border: 0; padding: 0; background: none; cursor: zoom-in; border-radius: 12px; overflow: hidden; box-shadow: 0 0 0 2px var(--game-edge), 0 24px 40px -24px var(--game-drop); transition: transform .2s var(--hop); }
 .marquee button:hover { transform: translateY(-4px); }
+[data-theme="light"] .marquee button { box-shadow: 0 0 0 2px var(--game-edge), 0 6px 0 var(--game-edge); }
 .marquee figcaption { color: var(--ink); font-size: 16px; font-weight: 700; }
 @media (prefers-reduced-motion: reduce) {
   .marquee { overflow-x: auto; -webkit-mask-image: none; mask-image: none; padding-inline: 16px; }
