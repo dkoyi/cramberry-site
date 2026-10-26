@@ -190,7 +190,7 @@
     });
   }
 
-  /* ---------- 2. Discord cards: the strip scrolls on its own (CSS); clicking a card opens it larger ---------- */
+  /* ---------- 5. Discord cards: the strip scrolls on its own (CSS); clicking a card opens it larger ---------- */
   function carousel() {
     const car = $("#carousel"), dlg = $("#lightbox");
     if (!car) return;

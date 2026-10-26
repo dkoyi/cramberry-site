@@ -50,6 +50,11 @@ THEME_BOOT = """<script>
 })();
 </script>"""
 
+# the home page embeds the demo video: open the YouTube connections early so it shows up faster
+PRECONNECT = """
+<link rel="preconnect" href="https://www.youtube-nocookie.com">
+<link rel="preconnect" href="https://i.ytimg.com">"""
+
 NAV = [("Demo", "index.html#top"), ("How it works", "index.html#how"), ("Cubbie", "index.html#cubbie"),
        ("Games", "index.html#games"), ("Team", "index.html#team")]
 
@@ -86,7 +91,7 @@ def head(title, desc, path="", extra_css="", intro=False):
 <link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png">
 <link rel="preload" href="assets/fonts/PixelifySans-Medium.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="preload" href="assets/fonts/Outfit-Bold.ttf" as="font" type="font/ttf" crossorigin>
-<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/site.css">{PRECONNECT if intro else ''}
 {extra_css}
 </head>"""
 

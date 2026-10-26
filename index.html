@@ -36,6 +36,8 @@
 <link rel="preload" href="assets/fonts/PixelifySans-Medium.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="preload" href="assets/fonts/Outfit-Bold.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="stylesheet" href="css/site.css">
+<link rel="preconnect" href="https://www.youtube-nocookie.com">
+<link rel="preconnect" href="https://i.ytimg.com">
 <link rel="stylesheet" href="css/home.css">
 </head>
 <body class="home">
@@ -93,37 +95,12 @@
     </div>
     <div class="hero-video" id="demo"><iframe src="https://www.youtube-nocookie.com/embed/d9Y_zhhDnA4?rel=0" title="Cramberry demo video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
   </div>
+  <!-- command ticker along the bottom edge (the list is written twice so it loops seamlessly) -->
+  <div class="ticker" aria-hidden="true"><div class="ticker-track"><span>/battle</span><span>/lie</span><span>/explain</span><span>/daily</span><span>/plan</span><span>/focus</span><span>/radar</span><span>/notes</span><span>/profile</span><span>/leaderboard</span><span>/link</span><span>"im cooked"</span><span>/battle</span><span>/lie</span><span>/explain</span><span>/daily</span><span>/plan</span><span>/focus</span><span>/radar</span><span>/notes</span><span>/profile</span><span>/leaderboard</span><span>/link</span><span>"im cooked"</span></div></div>
 </section>
 
-<!-- 2. WHAT YOUR GROUP SEES: the real Discord cards, scrolling on their own (pauses on hover; click to enlarge) -->
-<section class="band night cards-band" id="cards" aria-labelledby="cards-h">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="kicker">In Discord</p>
-      <h2 class="h2 reveal-h" id="cards-h">What your group sees.</h2>
-    </div>
-  </div>
-  <div class="marquee" id="carousel" aria-label="The picture cards Cramberry posts in Discord">
-    <div class="marquee-track">
-      <figure><button type="button" data-full="assets/readme/card-battle.png"><img src="assets/readme/card-battle.png" width="960" height="380" alt="Battle card: the lime Recursion Boss at full HP, question 2 of 5, with a MISS tag" loading="lazy"></button><figcaption>A question in progress.</figcaption></figure>
-      <figure><button type="button" data-full="assets/readme/card-hurt.png"><img src="assets/readme/card-hurt.png" width="960" height="380" alt="Battle card: CRIT! The lemon TCP Protocol Stack Boss, hurt with a bandage, at 30% HP" loading="lazy"></button><figcaption>3 right in a row: critical hit.</figcaption></figure>
-      <figure><button type="button" data-full="assets/readme/card-liar.png"><img src="assets/readme/card-liar.png" width="960" height="380" alt="Two Truths and a Lie card: the dragonfruit liar boss, caches, question 1 of 5" loading="lazy"></button><figcaption>Two Truths &amp; a Lie.</figcaption></figure>
-      <figure><button type="button" data-full="assets/readme/card-defeated.png"><img src="assets/readme/card-defeated.png" width="960" height="380" alt="Battle card: the Sorting Boss defeated, grey with X eyes, 0% HP" loading="lazy"></button><figcaption>Boss defeated.</figcaption></figure>
-      <figure><button type="button" data-full="assets/readme/card-victory.png"><img src="assets/readme/card-victory.png" width="960" height="450" alt="Victory card: the Floating Point Boss defeated, podium with Malaika first, Sunny second, Dhanush third, weak spot rounding" loading="lazy"></button><figcaption>The podium and the topic to review.</figcaption></figure>
-      <figure><button type="button" data-full="assets/readme/card-wiped.png"><img src="assets/readme/card-wiped.png" width="960" height="450" alt="Team wiped card: the Caches Boss kept 46% HP, podium, weak spot associativity" loading="lazy"></button><figcaption>Lost? It shows what to study next.</figcaption></figure>
-      <figure aria-hidden="true"><button type="button" tabindex="-1" data-full="assets/readme/card-battle.png"><img src="assets/readme/card-battle.png" width="960" height="380" alt="Battle card: the lime Recursion Boss at full HP, question 2 of 5, with a MISS tag" loading="lazy"></button><figcaption>A question in progress.</figcaption></figure>
-      <figure aria-hidden="true"><button type="button" tabindex="-1" data-full="assets/readme/card-hurt.png"><img src="assets/readme/card-hurt.png" width="960" height="380" alt="Battle card: CRIT! The lemon TCP Protocol Stack Boss, hurt with a bandage, at 30% HP" loading="lazy"></button><figcaption>3 right in a row: critical hit.</figcaption></figure>
-      <figure aria-hidden="true"><button type="button" tabindex="-1" data-full="assets/readme/card-liar.png"><img src="assets/readme/card-liar.png" width="960" height="380" alt="Two Truths and a Lie card: the dragonfruit liar boss, caches, question 1 of 5" loading="lazy"></button><figcaption>Two Truths &amp; a Lie.</figcaption></figure>
-      <figure aria-hidden="true"><button type="button" tabindex="-1" data-full="assets/readme/card-defeated.png"><img src="assets/readme/card-defeated.png" width="960" height="380" alt="Battle card: the Sorting Boss defeated, grey with X eyes, 0% HP" loading="lazy"></button><figcaption>Boss defeated.</figcaption></figure>
-      <figure aria-hidden="true"><button type="button" tabindex="-1" data-full="assets/readme/card-victory.png"><img src="assets/readme/card-victory.png" width="960" height="450" alt="Victory card: the Floating Point Boss defeated, podium with Malaika first, Sunny second, Dhanush third, weak spot rounding" loading="lazy"></button><figcaption>The podium and the topic to review.</figcaption></figure>
-      <figure aria-hidden="true"><button type="button" tabindex="-1" data-full="assets/readme/card-wiped.png"><img src="assets/readme/card-wiped.png" width="960" height="450" alt="Team wiped card: the Caches Boss kept 46% HP, podium, weak spot associativity" loading="lazy"></button><figcaption>Lost? It shows what to study next.</figcaption></figure>
-    </div>
-  </div>
-  <dialog class="lightbox" id="lightbox"><img alt=""><button class="btn btn-sm lb-close" type="button">Close</button></dialog>
-</section>
-
-<!-- 3. HOW IT WORKS: the Cubbie loop -->
-<section class="band night" id="how" aria-labelledby="how-h">
+<!-- 2. HOW IT WORKS: the Cubbie loop -->
+<section class="band game-band" id="how" aria-labelledby="how-h">
   <div class="wrap">
     <div class="sec-head">
       <p class="kicker">How it works</p>
@@ -191,7 +168,7 @@
   </div>
 </section>
 
-<!-- 4. CUBBIE FROM YOUR PHONE -->
+<!-- 3. CUBBIE FROM YOUR PHONE -->
 <section class="band cream" id="cubbie" aria-labelledby="cubbie-h">
   <div class="wrap phone-grid">
     <div>
@@ -214,7 +191,7 @@
   </div>
 </section>
 
-<!-- 5. GAMES: the live battle, four games, the fruit bosses -->
+<!-- 4. GAMES: the live battle, four games, the fruit bosses -->
 <section class="band cream-2" id="games" aria-labelledby="games-h">
   <div class="wrap">
     <div class="sec-head">
@@ -278,6 +255,33 @@
   </div>
 </section>
 
+<!-- 5. WHAT YOUR GROUP SEES: the real Discord cards, scrolling on their own (pauses on hover; click to enlarge) -->
+<section class="band game-band cards-band" id="cards" aria-labelledby="cards-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">In Discord</p>
+      <h2 class="h2 reveal-h" id="cards-h">What your group sees.</h2>
+    </div>
+  </div>
+  <div class="marquee" id="carousel" aria-label="The picture cards Cramberry posts in Discord">
+    <div class="marquee-track">
+      <figure><button type="button" data-full="assets/readme/card-battle.png"><img src="assets/readme/card-battle.png" width="960" height="380" alt="Battle card: the lime Recursion Boss at full HP, question 2 of 5, with a MISS tag" loading="lazy"></button><figcaption>A question in progress.</figcaption></figure>
+      <figure><button type="button" data-full="assets/readme/card-hurt.png"><img src="assets/readme/card-hurt.png" width="960" height="380" alt="Battle card: CRIT! The lemon TCP Protocol Stack Boss, hurt with a bandage, at 30% HP" loading="lazy"></button><figcaption>3 right in a row: critical hit.</figcaption></figure>
+      <figure><button type="button" data-full="assets/readme/card-liar.png"><img src="assets/readme/card-liar.png" width="960" height="380" alt="Two Truths and a Lie card: the dragonfruit liar boss, caches, question 1 of 5" loading="lazy"></button><figcaption>Two Truths &amp; a Lie.</figcaption></figure>
+      <figure><button type="button" data-full="assets/readme/card-defeated.png"><img src="assets/readme/card-defeated.png" width="960" height="380" alt="Battle card: the Sorting Boss defeated, grey with X eyes, 0% HP" loading="lazy"></button><figcaption>Boss defeated.</figcaption></figure>
+      <figure><button type="button" data-full="assets/readme/card-victory.png"><img src="assets/readme/card-victory.png" width="960" height="450" alt="Victory card: the Floating Point Boss defeated, podium with Malaika first, Sunny second, Dhanush third, weak spot rounding" loading="lazy"></button><figcaption>The podium and the topic to review.</figcaption></figure>
+      <figure><button type="button" data-full="assets/readme/card-wiped.png"><img src="assets/readme/card-wiped.png" width="960" height="450" alt="Team wiped card: the Caches Boss kept 46% HP, podium, weak spot associativity" loading="lazy"></button><figcaption>Lost? It shows what to study next.</figcaption></figure>
+      <figure aria-hidden="true"><button type="button" tabindex="-1" data-full="assets/readme/card-battle.png"><img src="assets/readme/card-battle.png" width="960" height="380" alt="Battle card: the lime Recursion Boss at full HP, question 2 of 5, with a MISS tag" loading="lazy"></button><figcaption>A question in progress.</figcaption></figure>
+      <figure aria-hidden="true"><button type="button" tabindex="-1" data-full="assets/readme/card-hurt.png"><img src="assets/readme/card-hurt.png" width="960" height="380" alt="Battle card: CRIT! The lemon TCP Protocol Stack Boss, hurt with a bandage, at 30% HP" loading="lazy"></button><figcaption>3 right in a row: critical hit.</figcaption></figure>
+      <figure aria-hidden="true"><button type="button" tabindex="-1" data-full="assets/readme/card-liar.png"><img src="assets/readme/card-liar.png" width="960" height="380" alt="Two Truths and a Lie card: the dragonfruit liar boss, caches, question 1 of 5" loading="lazy"></button><figcaption>Two Truths &amp; a Lie.</figcaption></figure>
+      <figure aria-hidden="true"><button type="button" tabindex="-1" data-full="assets/readme/card-defeated.png"><img src="assets/readme/card-defeated.png" width="960" height="380" alt="Battle card: the Sorting Boss defeated, grey with X eyes, 0% HP" loading="lazy"></button><figcaption>Boss defeated.</figcaption></figure>
+      <figure aria-hidden="true"><button type="button" tabindex="-1" data-full="assets/readme/card-victory.png"><img src="assets/readme/card-victory.png" width="960" height="450" alt="Victory card: the Floating Point Boss defeated, podium with Malaika first, Sunny second, Dhanush third, weak spot rounding" loading="lazy"></button><figcaption>The podium and the topic to review.</figcaption></figure>
+      <figure aria-hidden="true"><button type="button" tabindex="-1" data-full="assets/readme/card-wiped.png"><img src="assets/readme/card-wiped.png" width="960" height="450" alt="Team wiped card: the Caches Boss kept 46% HP, podium, weak spot associativity" loading="lazy"></button><figcaption>Lost? It shows what to study next.</figcaption></figure>
+    </div>
+  </div>
+  <dialog class="lightbox" id="lightbox"><img alt=""><button class="btn btn-sm lb-close" type="button">Close</button></dialog>
+</section>
+
 
 <!-- 6. IM COOKED -->
 <section class="band cream" id="cooked" aria-labelledby="cooked-h">
@@ -320,7 +324,7 @@
 </section>
 
 <!-- 8. ADD -->
-<section class="band night add" id="add" aria-labelledby="add-h">
+<section class="band game-band add" id="add" aria-labelledby="add-h">
   <div class="wrap add-grid">
     <div class="add-art"><canvas data-sprite="cramberry" data-scale="8" aria-hidden="true"></canvas></div>
     <div>
