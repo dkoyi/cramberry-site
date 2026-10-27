@@ -206,15 +206,14 @@
 .phrase .send:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--blue-deep); }
 .phrase .send small { display: block; font-weight: 400; font-size: 13.5px; color: #d6e6ff; }
 .phrase .copy { align-self: center; width: 44px; height: 44px; }
-/* the messages unlock in order: done ones get a tick, the next one glows, later ones wait */
+/* the messages unlock in order: the next one glows, later ones wait */
 .phrase .send { transition: transform .1s, box-shadow .2s, background .15s, opacity .2s; }
-.phrase.done .send::after { content: " ✓"; opacity: .85; }
-.phrase.next .send { box-shadow: 0 3px 0 var(--blue-deep), 0 0 0 3px var(--wildberry); animation: nextGlow 1.8s ease-in-out infinite; }
-[data-theme="dark"] .phrase.next .send { box-shadow: 0 3px 0 var(--blue-deep), 0 0 0 3px var(--gold); }
+.phrase.next .send { --ring: var(--wildberry); box-shadow: 0 0 0 3px var(--ring), 0 0 14px 3px rgba(42, 120, 230, .45); animation: nextGlow 1.8s ease-in-out infinite; }
+[data-theme="dark"] .phrase.next .send { --ring: var(--gold); }
 .phrase.locked .send { opacity: .5; }
 .phrase.locked .send:hover { opacity: .7; }
 .phrase.nudge .send { animation: nudge .5s steps(4) 1, nextGlow 1.8s ease-in-out infinite .5s; }
-@keyframes nextGlow { 50% { filter: brightness(1.12); } }
+@keyframes nextGlow { 50% { filter: brightness(1.12); box-shadow: 0 0 0 3px var(--ring), 0 0 24px 7px rgba(42, 120, 230, .7); } }
 @keyframes nudge { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
 .phone-how { max-width: 52ch; }
 .ph-body { scrollbar-width: none; }

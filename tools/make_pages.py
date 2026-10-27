@@ -131,8 +131,10 @@ def footer():
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <img src="assets/logo/wordmark-badge.png" width="1583" height="380" alt="Cramberry" loading="lazy">
-        <p class="signoff">Nobody gets cooked alone.</p>
+        <div class="foot-mark">
+          <img src="assets/logo/wordmark-badge.png" width="1583" height="380" alt="Cramberry" loading="lazy">
+          <p class="signoff">Nobody gets cooked alone.</p>
+        </div>
         <p class="muted" style="margin-top:10px">Cubbie Hackathon · Track 3 (Group Chat Assistant) · DevHacks Fall 2026 · team wildberry</p>
       </div>
       <div>

@@ -323,7 +323,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .foot-grid ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 4px; }
 .foot-grid a { text-decoration: none; color: var(--night-text); display: inline-flex; min-height: 40px; align-items: center; }
 .foot-grid a:hover { color: #fff; text-decoration: underline; text-underline-offset: 6px; }
-.foot-brand img { width: min(320px, 100%); }
+/* the logo stretches to the width of the sign-off line under it */
+.foot-mark { width: fit-content; max-width: 100%; }
+.foot-mark img { display: block; width: 0; min-width: 100%; height: auto; }
 .signoff { font-family: var(--f-pixel); font-size: clamp(22px, 2.6vw, 30px); color: var(--blush); margin-top: 20px; }
 .credits { margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--panel-edge); color: var(--night-muted); font-size: 15px; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; align-items: center; }
 .foot-peek { display: flex; align-items: flex-end; gap: 12px; }
