@@ -55,7 +55,7 @@ PRECONNECT = """
 <link rel="preconnect" href="https://www.youtube-nocookie.com">
 <link rel="preconnect" href="https://i.ytimg.com">"""
 
-NAV = [("Demo", "index.html#top"), ("How it works", "index.html#how"), ("Cubbie", "index.html#cubbie"),
+NAV = [("Demo", "index.html#top"), ("How it works", "index.html#how"), ("Cubbie.ai", "index.html#cubbie"),
        ("Games", "index.html#games"), ("Team", "index.html#team")]
 
 
@@ -151,7 +151,7 @@ def footer():
         <ul>
           <li><a href="{ADD}" target="_blank" rel="noopener">Add to Discord</a></li>
           <li><a href="dashboard.html">Squad dashboard (demo)</a></li>
-          <li><a href="{SKILL}" target="_blank" rel="noopener">Cubbie skill (squad-link)</a></li>
+          <li><a href="{SKILL}" target="_blank" rel="noopener">Cubbie.ai skill (squad-link)</a></li>
           <li><a href="https://hackathon.cubbie.ai/" target="_blank" rel="noopener">Cubbie Hackathon</a></li>
         </ul>
       </div>
@@ -191,7 +191,7 @@ def page(file, title, desc, body, active="", css="", js=(), body_class=""):
 
 if __name__ == "__main__":
     page("index.html", "Cramberry · turn your Discord study group chat into a cram battle",
-         "Cramberry is a Discord bot for study groups: when someone says im cooked, it starts a 2-minute quiz the whole group plays, and each person's Cubbie texts them what they missed.",
+         "Cramberry is a Discord bot for study groups: when someone says im cooked, it starts a 2-minute quiz the whole group plays, and each person's Cubbie.ai texts them what they missed.",
          (PAGES / "home.html").read_text(encoding="utf-8"), css="home", js=("home",), body_class="home")
     page("dashboard.html", "Squad dashboard · Cramberry (demo)",
          "What a study squad looks like after a week of Cramberry: leaderboard, streaks, battles, deadlines and weak spots.",

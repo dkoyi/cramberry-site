@@ -93,11 +93,11 @@
     const L = $("#loop");
     if (!L) return;
     const STEPS = {
-      1: { link: 1, dir: "fwd", on: ["canvas", "cubbies"], t: "Your Cubbie checks your Canvas: topics and due dates. Never grades." },
+      1: { link: 1, dir: "fwd", on: ["canvas", "cubbies"], t: "Your Cubbie.ai checks your Canvas: topics and due dates. Never grades." },
       2: { link: 2, dir: "fwd", on: ["cubbies", "cram"], t: "It writes a quiz from your notes and asks you before sending it." },
       3: { link: 3, dir: "fwd", on: ["cram", "chat"], t: "Cramberry posts the quiz in your Discord group chat." },
       4: { link: 3, dir: "back", on: ["chat", "cram"], t: "Everyone answers with A–D buttons." },
-      5: { link: 2, dir: "back", on: ["cram", "cubbies"], t: "Your results go only to your Cubbie: your rank and what you missed." },
+      5: { link: 2, dir: "back", on: ["cram", "cubbies"], t: "Your results go only to your Cubbie.ai: your rank and what you missed." },
     };
     let cur = 1, playing = false, timer;
     const cap = $("#loop-cap");
@@ -147,7 +147,7 @@
         "Missed: AMAT with a 5% miss rate and a 100-cycle penalty. Right answer: 6 cycles (1 + 0.05 × 100). Want a 3-question practice round?"] },
       { say: "update squad-link", r: ["Updated squad-link from the repository…"] },
     ];
-    // The skill only works in order: each message unlocks the next. Skipping ahead gets a nudge from Cubbie that
+    // The skill only works in order: each message unlocks the next. Skipping ahead gets a nudge from Cubbie.ai that
     // reacts to what you tapped and names the step you still need.
     const REACT = [
       null,
@@ -188,10 +188,10 @@
         const obj = typeof r === "object";
         if (obj && r.me) { await sleep(700); add(esc(r.me), "me"); continue; }
         const t = add("<i></i><i></i><i></i>", "them typing");
-        t.setAttribute("aria-label", "Cubbie is typing");
+        t.setAttribute("aria-label", "Cubbie.ai is typing");
         await sleep(CB.reduced() ? 150 : 650 + Math.min(900, (obj ? 30 : r.length) * 8));
         t.remove();
-        if (obj && r.link) add(`<img src="${CUBBIE}" alt=""><div><b>Provide details · Cubbie</b><span>cubbie.ai · private page</span></div>`, "them link");
+        if (obj && r.link) add(`<img src="${CUBBIE}" alt=""><div><b>Provide details · Cubbie.ai</b><span>cubbie.ai · private page</span></div>`, "them link");
         else add(esc(r), "them");
       }
     }
@@ -344,7 +344,7 @@
     const CMDS = [
       ["/plan", "pick a study time"], ["/focus", "group Pomodoro"], ["/radar", "what's due this week"],
       ["/notes", "upload your slides"], ["/profile", "your level and streak"], ["/leaderboard", "who's on top"],
-      ["/link", "connect your Cubbie"], ["/quiet", "stop reading the chat"],
+      ["/link", "connect your Cubbie.ai"], ["/quiet", "stop reading the chat"],
     ];
     const ul = $("#cmds");
     if (!ul) return;
