@@ -125,11 +125,11 @@ canvas.spr { display: block; }
 
 /* kickers, headings */
 .kicker {
-  font-family: var(--f-pixel); font-weight: 500; font-size: 13.5px; letter-spacing: .08em; text-transform: uppercase;
+  font-family: var(--f-pixel); font-weight: 500; font-size: clamp(15.5px, 1.25vw, 18px); letter-spacing: .08em; text-transform: uppercase;
   color: var(--wildberry); display: inline-flex; align-items: center; gap: 10px;
 }
 .night .kicker, [data-theme="dark"] .game-band .kicker { color: var(--gold); }
-.kicker::before { content: ""; width: 10px; height: 10px; background: currentColor; box-shadow: 4px 4px 0 0 var(--blue); }
+.kicker::before { content: ""; width: 12px; height: 12px; background: currentColor; box-shadow: 4px 4px 0 0 var(--blue); }
 .night .kicker::before, [data-theme="dark"] .game-band .kicker::before { box-shadow: 4px 4px 0 0 var(--wildberry); }
 .h1 { font-size: clamp(31px, 4.3vw, 54px); }
 .h2 { font-size: clamp(27px, 3.4vw, 42px); }

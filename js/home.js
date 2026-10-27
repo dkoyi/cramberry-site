@@ -147,18 +147,44 @@
         "Missed: AMAT with a 5% miss rate and a 100-cycle penalty. Right answer: 6 cycles (1 + 0.05 × 100). Want a 3-question practice round?"] },
       { say: "update squad-link", r: ["Updated squad-link from the repository…"] },
     ];
+    // The skill only works in order: each message unlocks the next. Skipping ahead gets a nudge from Cubbie that
+    // reacts to what you tapped and names the step you still need.
+    const REACT = [
+      null,
+      "Not so fast 🙂",
+      "Love the energy, but there's nothing to link to yet.",
+      "I'd share it, but I'm not set up for a squad yet.",
+      "Check which squad? 🤔",
+      "Battle mode already? ⚔️ Almost.",
+      "What battle? 😅 We haven't fought one yet.",
+      "Nothing to update yet, you're still setting up.",
+    ];
+    const NEED = [
+      'Say hi first! Text "hi cubbie" and I\'ll walk you through setting up your study squad.',
+      'I don\'t have the squad-link skill yet, so I can\'t talk to Cramberry. Send me the install link first: "install …/squad-link/SKILL.md".',
+      'The skill is installed, but I don\'t know which Discord group is yours. Text "link my study squad" and I\'ll send you a private page for the key.',
+      'You\'re linked to wildberry squad! Share your courses first so Cramberry knows what you\'re studying: "check my squad and share my course snapshot".',
+      'Snapshot shared. Now try a plain "check my squad" to see what\'s new from the group.',
+      'Let\'s start one: "challenge my squad on caches from my CSE 230 notes". I\'ll write the questions and ask before posting.',
+      'Ask me how your battle went first: "how did the squad battle go?" Updating can wait.',
+    ];
+    let done = 0;                       // how many steps are unlocked and finished, in order
     list.innerHTML = P.map((p, i) => `<li class="phrase"><button class="send" type="button" data-i="${i}">${esc(p.label || p.say)}</button><button class="copy" type="button" data-copy="${esc(p.say)}" aria-label="Copy: ${esc(p.label || p.say)}"></button></li>`).join("");
     CB.fillCopyIcons(list);
+    const items = $$(".phrase", list);
+    function mark() {
+      items.forEach((li, i) => {
+        li.classList.toggle("done", i < done);
+        li.classList.toggle("next", i === done);
+        li.classList.toggle("locked", i > done);
+        $(".send", li).setAttribute("aria-label", (li.textContent || "").trim() + (i < done ? " (done)" : i === done ? " (next step)" : " (locked: do the steps above first)"));
+      });
+    }
+    mark();
     let busy = false;
     const add = (html, cls) => { const d = document.createElement("div"); d.className = "bub " + cls; d.innerHTML = html; body.appendChild(d); body.scrollTop = body.scrollHeight; return d; };
-    list.addEventListener("click", async (e) => {
-      const b = e.target.closest(".send");
-      if (!b || busy) return;
-      busy = true;
-      list.setAttribute("aria-busy", "true");
-      const p = P[+b.dataset.i];
-      add(esc(p.say), "me");
-      for (const r of p.r) {
+    async function reply(lines) {
+      for (const r of lines) {
         const obj = typeof r === "object";
         if (obj && r.me) { await sleep(700); add(esc(r.me), "me"); continue; }
         const t = add("<i></i><i></i><i></i>", "them typing");
@@ -167,6 +193,21 @@
         t.remove();
         if (obj && r.link) add(`<img src="${CUBBIE}" alt=""><div><b>Provide details · Cubbie</b><span>cubbie.ai · private page</span></div>`, "them link");
         else add(esc(r), "them");
+      }
+    }
+    list.addEventListener("click", async (e) => {
+      const b = e.target.closest(".send");
+      if (!b || busy) return;
+      busy = true;
+      list.setAttribute("aria-busy", "true");
+      const i = +b.dataset.i, p = P[i];
+      add(esc(p.say), "me");
+      if (i > done) {
+        await reply([REACT[i], NEED[done]]);
+        items[done].classList.remove("nudge"); void items[done].offsetWidth; items[done].classList.add("nudge");
+      } else {
+        await reply(p.r);
+        if (i === done) { done++; mark(); }
       }
       busy = false;
       list.removeAttribute("aria-busy");
@@ -210,51 +251,77 @@
   function cooked() {
     const feed = $("#dc-feed"), form = $("#dc-in"), input = $("#dc-text"), hint = $("#dc-hint");
     if (!feed) return;
-    // same pattern as cramberry/engine.py PANIC (falls back to a simpler test on very old browsers)
+    // the bot's PANIC pattern (cramberry/engine.py) plus the other ways people say it in a group chat
+    const SAYS = "doomed|so screwed|screwed|so lost|so behind|send help|need help|help me|cramming|panicking|panic|stressed|freaking out" +
+      "|(?:gonna|going to|finna|about to|will) fail|failing|so dead|im dead|i'?m dead|i'?m done|so done|toast|drowning|struggling" +
+      "|losing my mind|can'?t do this|haven'?t started|have not started|no idea|don'?t get|do not get|don'?t understand|confused|fml|rip me";
     let PANIC;
     try {
-      PANIC = new RegExp("(?<!\\bi )(?<!\\bhe )(?<!\\bshe )(?<!\\bwe )(?<!\\byou )(?<!\\bthey )\\bcooked\\b" +
-        "|\\b(?:doomed|so screwed|so lost|so behind|send help|cramming|panicking|(?:gonna|going to|finna|about to) fail)\\b", "i");
+      PANIC = new RegExp("(?<!\\bi )(?<!\\bhe )(?<!\\bshe )(?<!\\bwe )(?<!\\byou )(?<!\\bthey )\\bcooked\\b|\\b(?:" + SAYS + ")\\b", "i");
     } catch (e) {
-      PANIC = { test: (t) => /\bcooked\b|send help|gonna fail|doomed/i.test(t) && !/\b(i|he|she|we|you|they) cooked\b/i.test(t) };
+      const loose = new RegExp("\\bcooked\\b|\\b(?:" + SAYS + ")\\b", "i");
+      PANIC = { test: (t) => loose.test(t) && !/\b(i|he|she|we|you|they) cooked\b/i.test(t) };
     }
+    const STOP = new Set(["the", "a", "an", "my", "this", "that", "it", "everything", "anything", "life", "monday", "tuesday", "wednesday",
+      "thursday", "friday", "saturday", "sunday", "today", "tomorrow", "tonight", "time", "here", "there", "class", "lol", "fr", "ngl"]);
+    function topicOf(t) {
+      const m = t.toLowerCase().match(/\b(?:on|in|about|with|for)\s+([a-z][a-z0-9+#-]{1,24})/g) || [];
+      for (const hit of m) { const w = hit.split(/\s+/)[1]; if (!STOP.has(w)) return w; }
+      return "";
+    }
+    const FRUITS = ["grape", "lime", "lemon", "tangerine", "kiwi"];
+    const fruitFor = (topic) => topic === "caches" || !topic ? "grape" : FRUITS[[...topic].reduce((h, c) => h + c.charCodeAt(0), 0) % FRUITS.length];
+    const HEADS = [
+      (t) => `🆘 Sunny is cooked${t}. Squad, assemble!`,
+      (t) => `🚨 Code red: Sunny is cooked${t}. All hands!`,
+      (t) => `🆘 Sunny needs backup${t}. Squad, rally!`,
+      (t) => `📣 Sunny's cooked${t}. Nobody studies alone!`,
+    ];
+    const SUBS = ["Nobody gets cooked alone 🫐 Here's the game plan:", "Deep breaths. Here's how the squad fixes this:",
+      "We've got you. Pick a move:", "Panic is optional. Studying together isn't:"];
+    let rallies = 0;
     const boss = $("#cooked-boss canvas"), bub = $("#cooked-boss .bubble");
     CB.onView($("#cooked .dc"), () => boss && CB.laugh(boss, "grape", 1500, bub), { threshold: 0.4 });
-    let rallied = false;
     const now = () => "Today at " + new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    function trim() { while (feed.children.length > 14) feed.firstElementChild.remove(); }  // keep the demo chat light
     function msg(text) {
       const d = document.createElement("div");
       d.className = "dcm";
       d.innerHTML = `<span class="av" style="background:#ec4c58"></span><div><b style="color:#f3a6b8">Sunny</b> <span class="you-tag">you</span> <time>${now()}</time><p>${esc(text)}</p></div>`;
       feed.appendChild(d);
+      trim();
       feed.scrollTop = feed.scrollHeight;
     }
-    function rally() {
+    function rally(topic) {
+      const n = rallies++, on = topic ? ` on ${topic}` : "", fruit = fruitFor(topic);
+      const battle = topic ? `<code>/battle ${esc(topic)}</code><span>· 2-min boss battle on ${esc(topic)}, together</span>`
+        : `<code>/battle</code><span>· type the topic you're cooked on, 2-min boss battle together</span>`;
       const d = document.createElement("div");
       d.className = "dcm";
       d.innerHTML = `<span class="av cb"><canvas data-sprite="cramberry" data-scale="1" aria-hidden="true"></canvas></span>
         <div><b style="color:#8fb5ff">Cramberry</b><span class="app-tag">APP</span> <time>${now()}</time>
         <div class="rally">
           <div>
-            <h4>🆘 Sunny is cooked. Squad, assemble!</h4>
-            <p class="r-sub">Nobody gets cooked alone 🫐 Here's the game plan:</p>
+            <h4>${esc(HEADS[n % HEADS.length](on))}</h4>
+            <p class="r-sub">${SUBS[n % SUBS.length]}</p>
             <p class="r-h">What to do next</p>
             <ol>
-              <li><span class="n">1</span><code>/battle</code><span>· type the topic you're cooked on, 2-min boss battle together</span></li>
+              <li><span class="n">1</span>${battle}</li>
               <li><span class="n">2</span><code>/explain</code><span>· teach a topic back, the AI grades it</span></li>
               <li><span class="n">3</span><code>/plan</code><span>· pick a time to study together</span></li>
               <li><span class="n">4</span><code>/focus</code><span>· group Pomodoro right now</span></li>
               <li><span class="n">5</span><code>/radar</code><span>· everything due this week</span></li>
             </ol>
           </div>
-          <canvas class="rb" data-sprite="boss-grape" data-box="22" data-scale="4" aria-hidden="true"></canvas>
+          <canvas class="rb" data-sprite="boss-${fruit}" data-box="22" data-scale="4" aria-hidden="true"></canvas>
           <p class="r-foot">Start typing / in the chat to pick a command · /quiet if you'd rather I stay out of the chat</p>
         </div></div>`;
       feed.appendChild(d);
+      trim();
       CB.sprites.mount(d);
       const c = $(".av.cb canvas", d); c.style.width = "40px"; c.style.height = "34px";
       feed.scrollTop = feed.scrollHeight;
-      setTimeout(() => CB.laugh($(".rb", d), "grape", 1500), 500);
+      setTimeout(() => CB.laugh($(".rb", d), fruit, 1500), 500);
       boss && setTimeout(() => CB.laugh(boss, "grape", 1500, bub), 300);
     }
     function send(text) {
@@ -262,12 +329,10 @@
       if (!text) return;
       msg(text);
       if (PANIC.test(text)) {
-        if (rallied) { hint.textContent = "In Discord, Cramberry rallies at most once every 5 minutes per chat, so it stays quiet now."; return; }
-        rallied = true;
-        hint.textContent = "";
-        setTimeout(rally, 700);
+        hint.textContent = rallies ? "In a real server Cramberry rallies at most once every 5 minutes per chat. Here, try it as often as you like." : "";
+        setTimeout(() => rally(topicOf(text)), 700);
       } else {
-        hint.textContent = "Cramberry stays quiet: that doesn't sound like someone who's cooked. Try \"im cooked\", \"gonna fail\" or \"send help\".";
+        hint.textContent = "Cramberry stays quiet: that doesn't sound like someone who's cooked. Try \"im cooked\", \"send help\" or \"exam tomorrow and I'm so lost\".";
       }
     }
     form.addEventListener("submit", (e) => { e.preventDefault(); send(input.value); input.value = ""; });
